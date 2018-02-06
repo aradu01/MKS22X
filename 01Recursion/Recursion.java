@@ -1,6 +1,10 @@
 public class Recursion {
     
     public int fact(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         return helpFact(n, 1);
     }
     
@@ -13,6 +17,10 @@ public class Recursion {
     }
     
     public int fib(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         if (n == 0) {
             return 0;
         }
@@ -33,6 +41,10 @@ public class Recursion {
     }
     
     public double sqrt(double n) {
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         if (n == 0) {
             return 0;
         }
@@ -41,7 +53,7 @@ public class Recursion {
     }
     
     public double helpSqrt(double guess, double num) {
-        if (Math.abs(guess * guess - num) / num < 1e-9) {
+        if (Math.abs(guess * guess - num) / num < 1e-6) {
             return guess;
         }
         
