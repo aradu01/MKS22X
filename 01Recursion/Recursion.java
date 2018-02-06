@@ -60,4 +60,29 @@ public class Recursion {
         return helpSqrt((num / guess + guess) / 2, num);
     }
     
+    public static void main(String[] args) {
+        Recursion a = new Recursion();
+        
+        System.out.println("Factorial Tests:");
+        System.out.println(a.fact(0));
+        System.out.println(a.fact(1));
+        System.out.println(a.fact(2));
+        System.out.println(a.fact(3));
+        System.out.println(a.fact(10));
+        
+        System.out.println("Fibonacci Tests:");
+        System.out.println(a.fib(0));
+        System.out.println(a.fib(1));
+        System.out.println(a.fib(2));
+        System.out.println(a.fib(3));
+        System.out.println(a.fib(10));
+        
+        System.out.println("Square Root Tests:");
+        System.out.println(a.sqrt(0));
+        System.out.println(a.sqrt(1));
+        System.out.println(a.sqrt(2.5));
+        System.out.println(a.sqrt(5e-12));
+        System.out.println(a.sqrt(10));
+    }
+    
 }
