@@ -41,7 +41,7 @@ public class QueenBoard {
     }
 
     private boolean removeQueen(int r, int c) {
-    	board[r][c] = -1;
+    	board[r][c] = 0;
     	int row = r;
     	int column = c;
     	
@@ -88,6 +88,20 @@ public class QueenBoard {
                 return help(counter, row, col + 1);
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        QueenBoard a = new QueenBoard(5);
+        System.out.println(a);
+        
+        a.addQueen(0,0);
+        System.out.println(a);
+        
+        a.addQueen(2, 3);
+        System.out.println(a);
+        
+        a.removeQueen(0,0);
+        System.out.println(a);
     }
 
 }
