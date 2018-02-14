@@ -1,0 +1,28 @@
+public class KnightBoard {
+
+    private int[][] board;
+    private int[][] coordinates;
+
+    public KnightBoard(int startingRows, int startingCols) {
+	board = new int[startingRows][startingCols];
+	coordinates = {{1,2},{1,-2},{2,1},{2,-1},{-1,2},{-1,-2},{-2,1},{-2,-1}};
+    }
+
+    public String toString() {
+	String grid = "";
+	for (int[] row: board) {
+	    for (int cell: row) {
+		if (cell < 10) {
+		    grid += "  " + cell;
+		}
+		else {
+		    grid += " " + cell;
+		}
+	    }
+	    grid += "\n";
+	}
+	return grid;
+    }
+
+    public boolean solve(int startingRow, int startingCol) {
+	
