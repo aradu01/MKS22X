@@ -65,7 +65,7 @@ public class KnightBoard {
         for (int[] move: coordinates) {
             if (row + move[0] >= 0 && row + move[0] < board.length &&
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
-                if (! (xdirection == -move[0] && ydirection == -move[1]) && board[row + move[0]][col + move[1]] == 0) {
+                if ((xdirection != -move[0] || ydirection != -move[1]) && board[row + move[0]][col + move[1]] == 0) {
                     if (helpSolve(row + move[0], col + move[1], counter - 1, move[0], move[1])) {
                         board[row][col] = counter;
                         System.out.println(this);
