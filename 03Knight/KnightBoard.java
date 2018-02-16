@@ -59,6 +59,7 @@ public class KnightBoard {
 
     private boolean helpSolve(int row, int col, int counter, int xdirection, int ydirection) {
         if (counter == board.length * board[0].length) {
+            board[row][col] = counter;
             return true;
         }
         
@@ -75,7 +76,8 @@ public class KnightBoard {
                 }
             }
         }
-
+        
+        board[row][col] = 0;
         return false;
     }
    /* 
@@ -114,7 +116,7 @@ public class KnightBoard {
     }
 */
     public static void main(String[] args) {
-        KnightBoard a = new KnightBoard(4, 4);
+        KnightBoard a = new KnightBoard(5, 5);
         System.out.println(a);
 
         a.solve(1, 1);
