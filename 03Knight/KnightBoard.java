@@ -47,8 +47,6 @@ public class KnightBoard {
     }
 
     public boolean solve(int startingRow, int startingCol) {
-        solutionsCounter = 0;
-        
         for (int[] row: board) {
             for (int cell: row) {
                 if (cell != 0) {
@@ -67,12 +65,12 @@ public class KnightBoard {
         }
         
         board[row][col] = counter;
-        System.out.println(this);
-
+        
         for (int[] move: coordinates) {
             if (row + move[0] >= 0 && row + move[0] < board.length &&
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
-                if ((xdirection != -move[0] || ydirection != -move[1]) && board[row + move[0]][col + move[1]] == 0) {
+                if ((xdirection != -move[0] || ydirection != -move[1]) &&
+                    board[row + move[0]][col + move[1]] == 0) {
                     if (helpSolve(row + move[0], col + move[1], counter + 1, move[0], move[1])) {
                         return true;
                     }
@@ -113,7 +111,8 @@ public class KnightBoard {
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
                 if (board[row + move[0]][col + move[1]] == 0) {
                     if (helpCount(row + move[0], col + move[1], counter + 1)) {
-                        helpCount(row + 1, 0, 1);
+                        helpCount(row + 1, col, counter);
+                        helpCount(row, col + 1, counter);
                         board[row][col] = 0;
                     }
                 }
