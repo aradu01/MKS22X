@@ -5,11 +5,15 @@ public class KnightBoard {
     private int solutionsCounter;
 
     public KnightBoard(int startingRows, int startingCols) {
-    board = new int[startingRows][startingCols];
-    coordinates = new int[][] { {1,2}, {1,-2}, 
-                                {2,1}, {2,-1},
-                                {-1,2}, {-1,-2},
-                                {-2,1}, {-2,-1} };
+        if (startingRows < 0 || startingCols < 0) {
+            throw new IllegalArgumentException("The dimensions must be positive.");
+        }
+        
+        board = new int[startingRows][startingCols];
+        coordinates = new int[][] { {1,2}, {1,-2}, 
+                                    {2,1}, {2,-1},
+                                    {-1,2}, {-1,-2},
+                                    {-2,1}, {-2,-1} };
 
     /*  Optimization Attempt.
     for (int row = 0; row < board.length; row++) {
@@ -47,6 +51,14 @@ public class KnightBoard {
     }
 
     public boolean solve(int startingRow, int startingCol) {
+        if (startingRow < 0 || startingCol < 0) {
+            throw new IllegalArgumentException("The inputs must be positive.");
+        }
+        
+        if (startingRow >= board.length || startingCol >= board[0].length) {
+            throw new IllegalArgumentException("The inputs must be within the dimensions.");
+        }
+        
         for (int[] row: board) {
             for (int cell: row) {
                 if (cell != 0) {
@@ -84,6 +96,14 @@ public class KnightBoard {
 
     public int countSolutions(int startingRow, int startingCol) {
         solutionsCounter = 0;
+        
+        if (startingRow < 0 || startingCol < 0) {
+            throw new IllegalArgumentException("The inputs must be positive.");
+        }
+        
+        if (startingRow >= board.length || startingCol >= board[0].length) {
+            throw new IllegalArgumentException("The inputs must be within the dimensions.");
+        }
         
         for (int[] row: board) {
             for (int cell: row) {
