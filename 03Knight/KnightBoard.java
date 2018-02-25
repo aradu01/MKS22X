@@ -119,39 +119,37 @@ public class KnightBoard {
     
     private boolean helpCount(int row, int col, int counter) {
         if (counter == board.length * board[0].length) {
-            board[row][col] = counter;
             solutionsCounter++;
             return true;
         }
         
-        board[row][col] = counter;
-
         for (int[] move: coordinates) {
             if (row + move[0] >= 0 && row + move[0] < board.length &&
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
                 if (board[row + move[0]][col + move[1]] == 0) {
-                    if (helpCount(row + move[0], col + move[1], counter + 1)) {
-                        helpCount(row + 1, col, counter);
-                        helpCount(row, col + 1, counter);
-                        board[row][col] = 0;
-                    }
+                    helpCount(row + move[0], col + move[1], counter + 1);
+                    board[row][col] = 0;
                 }
             }
         }
-        
-        board[row][col] = 0;
+
         return false;
     }
     
     /* Testing.
     public static void main(String[] args) {
-        KnightBoard a = new KnightBoard(4,6);
+        KnightBoard a = new KnightBoard(4,5);
         a.solve(0,0);
         System.out.println(a);
         
-        KnightBoard c = new KnightBoard(5,5);
-        System.out.println(c.countSolutions(1,1));
-        System.out.println(c);
+        KnightBoard b = new KnightBoard(6,6);
+        int result = 0;
+		for (int row = 0; row < 6; row++) {
+			for (int col = 0; col < 6; col++) {
+				totalSol += b.countSolutions(row,col);
+			}
+		}
+		System.out.println(result);
     }
     */
 
