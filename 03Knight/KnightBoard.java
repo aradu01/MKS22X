@@ -144,12 +144,12 @@ public class KnightBoard {
         
         KnightBoard b = new KnightBoard(6,6);
         int result = 0;
-		for (int row = 0; row < 6; row++) {
-			for (int col = 0; col < 6; col++) {
-				result += b.countSolutions(row,col);
-			}
+	for (int row = 0; row < 6; row++) {
+		for (int col = 0; col < 6; col++) {
+			result += b.countSolutions(row,col);
 		}
-		System.out.println(result);
+	}
+	System.out.println(result);
     }
     */
 
