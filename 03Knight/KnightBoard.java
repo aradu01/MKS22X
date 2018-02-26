@@ -15,18 +15,18 @@ public class KnightBoard {
                                     {-1,2}, {-1,-2},
                                     {-2,1}, {-2,-1} };
 
-    /*  Optimization Attempt.
-    for (int row = 0; row < board.length; row++) {
-        for (int col = 0; col < board.length[row]; col++) {
-            if (row = 0 && col = 0 ||
-                row = 0 && col = board[row].length - 1 ||
-                row = board.length - 1 && col = 0 ||
-                row = board.length - 1 && col = board[row].length - 1) {
-                board[row][col] = 2;
-            }
+	/* Optimization Attempt.
+	for (int row = 0; row < board.length; row++) {
+	    for (int col = 0; col < board.length[row]; col++) {
+		if (row = 0 && col = 0 ||
+		    row = 0 && col = board[row].length - 1 ||
+		    row = board.length - 1 && col = 0 ||
+		    row = board.length - 1 && col = board[row].length - 1) {
+		    board[row][col] = 2;
+		}
 
-        else if (
-    */        
+		else if (
+	*/        
     }
 
     public String toString() {
@@ -120,6 +120,7 @@ public class KnightBoard {
     private boolean helpCount(int row, int col, int counter) {
         if (counter == board.length * board[0].length) {
             solutionsCounter++;
+	    board[row][col] = 0;
             return true;
         }
         
@@ -127,6 +128,7 @@ public class KnightBoard {
             if (row + move[0] >= 0 && row + move[0] < board.length &&
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
                 if (board[row + move[0]][col + move[1]] == 0) {
+		    board[row][col] = counter;
                     helpCount(row + move[0], col + move[1], counter + 1);
                     board[row][col] = 0;
                 }
@@ -136,21 +138,20 @@ public class KnightBoard {
         return false;
     }
     
-    /* Testing.
+ 
     public static void main(String[] args) {
-        KnightBoard a = new KnightBoard(4,5);
+        KnightBoard a = new KnightBoard(5,5);
         a.solve(0,0);
         System.out.println(a);
-        
-        KnightBoard b = new KnightBoard(6,6);
+
+        KnightBoard b = new KnightBoard(4,5);
         int result = 0;
-	for (int row = 0; row < 6; row++) {
-		for (int col = 0; col < 6; col++) {
-			result += b.countSolutions(row,col);
-		}
+	for (int row = 0; row < 4; row++) {
+	    for (int col = 0; col < 5; col++) {
+		result += b.countSolutions(row,col);
+	    }
 	}
 	System.out.println(result);
     }
-    */
 
 }

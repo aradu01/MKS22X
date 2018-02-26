@@ -70,43 +70,64 @@ public class KnightBoard {
     }
 
     private boolean helpSolve(int row, int col, int counter) {
-        if (counter == board.length * board[0].length) {
-            board[row][col] = counter;
-            return true;
-        }
+	if (row >= 0 && row < board.length &&
+	    col >= 0 && col < board[0].length) {
+	    
+	    if (board[row][col] == 0) {
+	    
+		if (counter == board.length * board[0].length) {
+		    board[row][col] = counter;
+		    return true;
+		}
         
-        board[row][col] = counter;
-        System.out.println(this);
+		board[row][col] = counter;
         
-        int fastest = 0;
-        for (int move = 0; move < coordinates.length; move++) {
-            if (row + coordinates[move][0] >= 0 && row + coordinates[move][0] < board.length &&
-                col + coordinates[move][1] >= 0 && col + coordinates[move][1] < board[0].length) {
-                if (board[row + coordinates[move][0]][col + coordinates[move][1]] == 0) {
-                    if (optimize[row + coordinates[move][0]][col + coordinates[move][1]] <
-                        optimize[row + coordinates[fastest][0]][col + coordinates[fastest][1]]) {
-                            fastest = move;
-                    }
-                }
-            }
-        }
+		int fastest = 0;
 
-        if (helpSolve(row + coordinates[fastest][0], col + coordinates[fastest][1], counter + 1)) {
-            return true;
-        }
+		for (int start = 0; start < coordinates.length; start++) {
+		    fastest = 0;
+
+		    while (! (row + coordinates[fastest][0] >= 0 && row + coordinates[fastest][0] < board.length &&
+			      col + coordinates[fastest][1] >= 0 && col + coordinates[fastest][1] < board.length)) {
+			fastest++;
+		    }
+	
+		    for (int move = start; move < coordinates.length; move++) {
+			if (row + coordinates[move][0] >= 0 && row + coordinates[move][0] < board.length &&
+			    col + coordinates[move][1] >= 0 && col + coordinates[move][1] < board[0].length) {
+			    if (optimize[row + coordinates[move][0]][col + coordinates[move][1]] <
+				optimize[row + coordinates[fastest][0]][col + coordinates[fastest][1]]) {
+				fastest = move;
+			    }
+			}
+		    }
+
+		    int[] temp = coordinates[0];
+		    coordinates[0] = coordinates[fastest];
+		    coordinates[fastest] = temp;
+		}
+
+		for (int[] move: coordinates) {
+		    if (helpSolve(row + move[0], col + move[1], counter + 1)) {
+			return true;
+		    }
+		}
         
-        board[row][col] = 0;
+		board[row][col] = 0;
+	    }
+	}
+	
         return false;
     }
 
-    /* For Testing.
+
     public static void main(String[] args) {
-        KnightBoard a = new KnightBoard(8,8);
+        KnightBoard a = new KnightBoard(4,4);
         System.out.println(a);
         
         a.solveFast();
         System.out.println(a);
     }
-    */
+ 
 
 }
