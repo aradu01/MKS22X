@@ -146,7 +146,7 @@ public class KnightBoard {
         int result = 0;
 		for (int row = 0; row < 6; row++) {
 			for (int col = 0; col < 6; col++) {
-				totalSol += b.countSolutions(row,col);
+				result += b.countSolutions(row,col);
 			}
 		}
 		System.out.println(result);
