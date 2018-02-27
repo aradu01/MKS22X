@@ -120,7 +120,7 @@ public class KnightBoard {
     private boolean helpCount(int row, int col, int counter) {
         if (counter == board.length * board[0].length) {
             solutionsCounter++;
-	        board[row][col] = 0;
+	    board[row][col] = 0;
             return true;
         }
         
@@ -128,7 +128,7 @@ public class KnightBoard {
             if (row + move[0] >= 0 && row + move[0] < board.length &&
                 col + move[1] >= 0 && col + move[1] < board[0].length) {
                 if (board[row + move[0]][col + move[1]] == 0) {
-		            board[row][col] = counter;
+		    board[row][col] = counter;
                     helpCount(row + move[0], col + move[1], counter + 1);
                     board[row][col] = 0;
                 }
@@ -138,20 +138,20 @@ public class KnightBoard {
         return false;
     }
     
-    /*
+    /* For Testing.
     public static void main(String[] args) {
-        KnightBoard a = new KnightBoard(5,5);
+        KnightBoard a = new KnightBoard(5,6);
         a.solve(0,0);
         System.out.println(a);
 
         KnightBoard b = new KnightBoard(4,5);
         int result = 0;
         for (int row = 0; row < 4; row++) {
-	        for (int col = 0; col < 5; col++) {
-		        result += b.countSolutions(row,col);
-	        }
+	    for (int col = 0; col < 5; col++) {
+		result += b.countSolutions(row,col);
 	    }
-	    System.out.println(result);
+	}
+	System.out.println(result);
     }
     */
 
