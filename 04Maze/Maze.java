@@ -24,7 +24,7 @@ public class Maze{
 
     */
 
-    public Maze(String filename) throws  {
+    public Maze(String filename) throws FileNotFoundException {
         //COMPLETE 
     }
     
@@ -78,7 +78,7 @@ public class Maze{
 
 	maze[rowS][colS] = '@';
 
-        return solve(rowS, colS);
+        return solve(rowS, colS, 0);
     }
 
     /*
@@ -101,6 +101,7 @@ public class Maze{
     */
     private int solve(int row, int col, int steps) { //you can add more parameters since this is private
 
+	int current = 0;
 
         //automatic animation! You are welcome.
         if(animate){
@@ -116,7 +117,17 @@ public class Maze{
 	if (maze[row][col] == '#') {
 	    return 0;
 	}
-	
+
+	if (maze[row][col] == 'E') {
+	    return steps;
+	}
+
+	if (maze[row][col] == ' ') {
+	    current += 1;
+	}
+
+	solve(row + 1, col, steps + count);
+	solve(row, col + 1, steps + count);
 
         return -1; //so it compiles
     }
