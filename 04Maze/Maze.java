@@ -25,10 +25,31 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException {
-        //COMPLETE 
+        File text = new File(filename);
+        Scanner counter = new Scanner(text);
+        Scanner reader = new Scanner(text);
+
+        String line = counter.nextLine();
+        int length = line.length();
+        int width = 1;
+        
+        while (counter.hasNextLine()) {
+            width++;
+        }
+        
+        char[][] maze = new char[length][width];
+
+        while (reader.hasNextLine()) {
+            for (int row = 0; row < maze.length; row++) {
+                line = reader.nextLine();
+
+                for (int col = 0; col < maze[row].length; col++) {
+                    maze[row][col] = line.charAt(col);
+                }
+            }
+        }
     }
     
-
     private void wait(int millis){
          try {
              Thread.sleep(millis);
