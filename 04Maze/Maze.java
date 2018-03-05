@@ -57,7 +57,7 @@ public class Maze {
 	String result = "";
 	
 	for (int row = 0; row < maze.length; row++) {
-	    for (int col = 0; col < maze.length[row]; col++) {
+	    for (int col = 0; col < maze[row].length; col++) {
 		result += maze[row][col];
 	    }
 	    result += '\n';
