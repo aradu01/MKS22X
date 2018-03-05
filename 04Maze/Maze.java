@@ -5,8 +5,11 @@ public class Maze {
 
     private char[][] maze;
     private boolean animate;
+    private int[][] coordinates;
 
     public Maze(String filename) throws FileNotFoundException {
+	coordinates = new int[][] { {0,1}, {1,0}, {0,-1}, {-1,0} };
+	
         File text = new File(filename);
         Scanner counter = new Scanner(text);
         Scanner reader = new Scanner(text);
@@ -31,15 +34,44 @@ public class Maze {
                 }
             }
         }
+	
+	/* For Testing.
+	int length = 0;
+        int width = 1;
+        
+        for (; length < filename.length() - 1; length++) {
+            if (filename.substring(length, length + 2).equals("\n")) {
+                break;
+            }
+        }
+        
+        for (int a = 0; a < filename.length() - 1; a++) {
+            if (filename.substring(a, a + 2).equals("\n")) {
+                width++;
+            }
+        }
+	*/
+    }
+	
+    public String toString() {
+	String result = "";
+	
+	for (int row = 0; row < maze.length; row++) {
+	    for (int col = 0; col < maze.length[row]; col++) {
+		result += maze[row][col];
+	    }
+	    result += '\n';
+	}
+	
+	return result;
     }
 
     private void wait(int millis) {
-         try {
-             Thread.sleep(millis);
-         }
-	 
-         catch (InterruptedException e) { }
-     }
+        try {
+            Thread.sleep(millis);
+        }
+        catch (InterruptedException e) { }
+    }
 
     public void setAnimate(boolean b) {
         animate = b;
@@ -50,7 +82,6 @@ public class Maze {
     }
 
     public int solve(){
-
 	int rowS = 0;
 	int colS = 0;
 
@@ -67,69 +98,59 @@ public class Maze {
 
         return solve(rowS, colS, 0);
     }
-
-    /*
-      Recursive Solve function:
-
-      A solved maze has a path marked with '@' from S to E.
-
-      Returns the number of @ symbols from S to E when the maze is solved,
-      Returns -1 when the maze has no solution.
-
-
-      Postcondition:
-
-        The S is replaced with '@' but the 'E' is not.
-
-        All visited spots that were not part of the solution are changed to '.'
-
-            Note: This is not required based on the algorithm, it is just nice visually to see.
-        All visited spots that are part of the solution are changed to '@'
     
     private int solve(int row, int col, int steps) { //you can add more parameters since this is private
-
-	int current = 0;
-
-        //automatic animation! You are welcome.
-        if(animate){
-
+        if (animate) {
             clearTerminal();
             System.out.println(this);
-
             wait(20);
         }
-
-        //COMPLETE SOLVE
-
-	if (maze[row][col] == '#') {
-	    return 0;
-	}
-
-	if (maze[row][col] == 'E') {
-	    return steps;
-	}
-
-	if (maze[row][col] == ' ') {
-	    current += 1;
-	}
-
-	solve(row + 1, col, steps + count);
-	solve(row, col + 1, steps + count);
-
-        return -1; //so it compiles
+        
+        if (maze[row][col] == 'E') {
+    	    return steps;
+    	}
+    	
+    	if (maze[row][col] == '#' || maze[row][col] == '.' || maze[row][col] == '.') {
+    	    return -1;
+    	}
+    	
+    	maze[row][col] = '@';
+    	
+    	if (maze[row][col] == ' ') {
+    	    for (int[] move: coordinates) {
+    	        if (solve(row + move[0], col + move[1], steps + 1) > 0) {
+    	            return solve(row + move[0], col + move[1], steps + 1);
+    	        }
+    	    }
+    	}
+        
+        maze[row][col] = '.';
+        return -1;
     }
-    */
     
     public static void main (String[] args) {
-	Maze a = null;
-
 	try {
-	    a = new Maze("data1.dat");
+	    Maze a = new Maze("NONEXISTENTFILE.dat");
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
 	    System.exit(1);
 	}
+	
+	Maze b = new Maze("data1.dat");
+	System.out.println(b);
+	b.solve();
+	System.out.println(b);
+	
+	Maze c = new Maze("data2.dat");
+	System.out.println(c);
+	c.solve();
+	System.out.println(c);
+	
+	Maze d = new Maze("data3.dat");
+	System.out.println(d);
+	d.solve();
+	System.out.println(d);
     }
     
 }
