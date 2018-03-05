@@ -157,6 +157,7 @@ public class Maze {
 	
 	try {
 	    Maze b = new Maze("data1.dat");
+	    b.setAnimate(true);
 	    System.out.println(b);
 	    System.out.println(b.solve());
 	    System.out.println(b);
@@ -168,6 +169,7 @@ public class Maze {
 	
 	try {
 	    Maze c = new Maze("data2.dat");
+	    c.setAnimate(true);
 	    System.out.println(c);
 	    System.out.println(c.solve());
 	    System.out.println(c);
@@ -179,6 +181,7 @@ public class Maze {
 	
 	try {
 	    Maze d = new Maze("data3.dat");
+	    d.setAnimate(true);
 	    System.out.println(d);
 	    System.out.println(d.solve());
 	    System.out.println(d);
