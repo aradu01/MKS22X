@@ -6,24 +6,28 @@ public class Maze {
     private char[][] maze;
     private boolean animate;
     private int[][] coordinates;
+    private int length, width;
 
     public Maze(String filename) throws FileNotFoundException, IllegalStateException {
 	coordinates = new int[][] { {0,1}, {1,0}, {0,-1}, {-1,0} };
 	
         File text = new File(filename);
+	File text2 = new File(filename);
         Scanner counter = new Scanner(text);
-        Scanner reader = new Scanner(text);
+        Scanner reader = new Scanner(text2);
 
         String line = counter.nextLine();
-        int length = line.length();
-        int width = 1;
+        length = line.length();
+        width = 1;
 
         while (counter.hasNextLine()) {
             width++;
 	    counter.nextLine();
         }
-        
-        char[][] maze = new char[length][width];
+
+	// System.out.println(length + " " + width);
+
+	maze = new char[width][length];
 	
         while (reader.hasNextLine()) {
             for (int row = 0; row < maze.length; row++) {
@@ -35,6 +39,8 @@ public class Maze {
             }
         }
 	
+	// System.out.println(maze);
+
 	int numE = 0;
 	int numS = 0;
 	
@@ -52,7 +58,7 @@ public class Maze {
 	if (numE != 1 || numS != 1) {
 	    throw new IllegalStateException("You must only have one start and one end.");
 	}
-	
+
 	/* For Testing.
 	int length = 0;
         int width = 1;
@@ -71,20 +77,20 @@ public class Maze {
 	*/
     }
 	
-    public String toString() {
+    public String toString() {  
 	String result = "";
 	
 	for (int row = 0; row < maze.length; row++) {
 	    for (int col = 0; col < maze[row].length; col++) {
 		result += maze[row][col];
 	    }
-	    result += '\n';
+	    result += "\n";
 	}
 	
 	return result;
     }
 
-    /* For Testing.
+    /*
     private void wait(int millis) {
         try {
             Thread.sleep(millis);
@@ -113,14 +119,12 @@ public class Maze {
 		}
 	    }
 	}
-
-	maze[rowS][colS] = '@';
-
+	
         return solve(rowS, colS, 0);
     }
     
     private int solve(int row, int col, int steps) {
-	/* For Testing.
+	/*
         if (animate) {
             clearTerminal();
             System.out.println(this);
@@ -132,24 +136,25 @@ public class Maze {
     	    return steps;
     	}
     	
-    	if (maze[row][col] == '#' || maze[row][col] == '.' || maze[row][col] == '.') {
+    	if (maze[row][col] == '#' || maze[row][col] == '.' || maze[row][col] == '@') {
     	    return -1;
     	}
-    	
-    	maze[row][col] = '@';
-    	
-    	if (maze[row][col] == ' ') {
-    	    for (int[] move: coordinates) {
-    	        if (solve(row + move[0], col + move[1], steps + 1) > 0) {
-    	            return solve(row + move[0], col + move[1], steps + 1);
-    	        }
-    	    }
+    	    	
+    	for (int[] move: coordinates) {
+	    maze[row][col] = '@';
+	    int temp = solve(row + move[0], col + move[1], steps + 1);
+	    
+	    if (temp > 0) {
+		return temp;
+	    }
+	    else {
+		maze[row][col] = '.';
+	    }
     	}
         
-        maze[row][col] = '.';
         return -1;
     }
-    
+
     /* For Testing.
     public static void main (String[] args) {
 	try {
@@ -157,7 +162,7 @@ public class Maze {
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
-	}
+	    }
 	
 	try {
 	    Maze b = new Maze("data1.dat");
@@ -169,7 +174,7 @@ public class Maze {
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
 	}
-	
+
 	try {
 	    Maze c = new Maze("data2.dat");
 	    c.setAnimate(true);
