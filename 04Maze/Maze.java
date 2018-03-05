@@ -84,6 +84,7 @@ public class Maze {
 	return result;
     }
 
+    /* For Testing.
     private void wait(int millis) {
         try {
             Thread.sleep(millis);
@@ -98,6 +99,7 @@ public class Maze {
     public void clearTerminal() {
         System.out.println("\033[2J\033[1;1H");
     }
+    */
 
     public int solve(){
 	int rowS = 0;
@@ -117,12 +119,14 @@ public class Maze {
         return solve(rowS, colS, 0);
     }
     
-    private int solve(int row, int col, int steps) { //you can add more parameters since this is private
+    private int solve(int row, int col, int steps) {
+	/* For Testing.
         if (animate) {
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
+	*/
         
         if (maze[row][col] == 'E') {
     	    return steps;
@@ -146,6 +150,7 @@ public class Maze {
         return -1;
     }
     
+    /* For Testing.
     public static void main (String[] args) {
 	try {
 	    Maze a = new Maze("NONEXISTENTFILE.dat");
@@ -187,5 +192,6 @@ public class Maze {
 	    System.out.println("Exception works!");
 	}
     }
+    */
     
 }
