@@ -7,7 +7,7 @@ public class Maze {
     private boolean animate;
     private int[][] coordinates;
 
-    public Maze(String filename) throws FileNotFoundException {
+    public Maze(String filename) throws FileNotFoundException, IllegalStateException {
 	coordinates = new int[][] { {0,1}, {1,0}, {0,-1}, {-1,0} };
 	
         File text = new File(filename);
@@ -34,6 +34,24 @@ public class Maze {
                 }
             }
         }
+	
+	int numE = 0;
+	int numS = 0;
+	
+	for (int row = 0; row < maze.length; row++) {
+	    for (int col = 0; col < maze[row].length; col++) {
+		if (maze[row][col] == 'E') {
+		    numE++;
+		}
+		if (maze[row][col] == 'S') {
+		    numS++;
+		}
+	    }
+	}
+	
+	if (numE != 1 || numS != 1) {
+	    throw new IllegalStateException("You must only have one start and one end.");
+	}
 	
 	/* For Testing.
 	int length = 0;
@@ -137,20 +155,38 @@ public class Maze {
 	    System.exit(1);
 	}
 	
-	Maze b = new Maze("data1.dat");
-	System.out.println(b);
-	b.solve();
-	System.out.println(b);
+	try {
+	    Maze b = new Maze("data1.dat");
+	    System.out.println(b);
+	    System.out.println(b.solve());
+	    System.out.println(b);
+	}
+	catch (FileNotFoundException e) {
+	    System.out.println("Exception works!");
+	    System.exit(1);
+	}
 	
-	Maze c = new Maze("data2.dat");
-	System.out.println(c);
-	c.solve();
-	System.out.println(c);
+	try {
+	    Maze c = new Maze("data2.dat");
+	    System.out.println(c);
+	    System.out.println(c.solve());
+	    System.out.println(c);
+	}
+	catch (FileNotFoundException e) {
+	    System.out.println("Exception works!");
+	    System.exit(1);
+	}
 	
-	Maze d = new Maze("data3.dat");
-	System.out.println(d);
-	d.solve();
-	System.out.println(d);
+	try {
+	    Maze d = new Maze("data3.dat");
+	    System.out.println(d);
+	    System.out.println(d.solve());
+	    System.out.println(d);
+	}
+	catch (FileNotFoundException e) {
+	    System.out.println("Exception works!");
+	    System.exit(1);
+	}
     }
     
 }
