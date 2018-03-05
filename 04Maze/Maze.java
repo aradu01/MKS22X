@@ -152,7 +152,6 @@ public class Maze {
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
-	    System.exit(1);
 	}
 	
 	try {
@@ -164,7 +163,6 @@ public class Maze {
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
-	    System.exit(1);
 	}
 	
 	try {
@@ -176,7 +174,6 @@ public class Maze {
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
-	    System.exit(1);
 	}
 	
 	try {
@@ -188,7 +185,6 @@ public class Maze {
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Exception works!");
-	    System.exit(1);
 	}
     }
     
