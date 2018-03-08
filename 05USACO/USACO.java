@@ -184,16 +184,36 @@ public class USACO {
         int[][] moves = new int[][] { {1,0}, {0,1}, {-1,0}, {0,-1} };
         int xcor = coordinates[0];
         int ycor = coordinates[1];
-        
+
+	int[][] old = new int[length][width];
+	int[][] current = new int[length][width];
+
+	for (int row = 0; row < land.length; row++) {
+	    for (int col = 0; col < land[row].length; col++) {
+		if (land[row][col] == '*') {
+		    old[row][col] = -1;
+		    current[row][col] = -1;
+		}
+	    }
+	}
+	
         while (time > 0) {
-            for (int[] step: moves) {
+	    for (int row = 0; row < land.length; row++) {
+		for (int col = 0; col < land[row].length; col++) {
+		    old[row][col] = current[row][col];	     
+		}
+	    }
+
+	    for (int row = 0; row < current.length; row++) {
+		for (int col = 0; col < current[row].length; col++) {//fix adder
+	    for (int[] step: moves) {
                 
-            }
-            time--;
-        }
-        
-        if (xcor == coordinates[2] && ycor == coordinates[3]) {
-            ways++;
+	    }
+	    time--;
+	}
+	    
+	if (xcor == coordinates[2] && ycor == coordinates[3]) {
+	    ways++;
         }
         
         return ways;
