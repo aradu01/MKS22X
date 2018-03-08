@@ -131,6 +131,74 @@ public class USACO {
         return area * 72 * 72;
     }
     
+    public static int silver(String filename) { // Needed to throw a FileNotFoundException when testing.
+        //First, set up the local variables.
+        
+        File document = new File(filename);
+        Scanner reciter = new Scanner(document);
+        
+        int length = reciter.nextInt();
+        int width = reciter.nextInt();
+        int time = reciter.nextInt();
+        
+        char[][] land = new char[length][width];
+        String line = reciter.nextLine();
+        
+        for (int row = 0; row < land.length; row++) {
+            line = reciter.nextLine();
+
+            for (int col = 0; col < land[row].length; col++) {
+                land[row][col] = line.charAt(col);
+            }
+        }
+        
+        int[] coordinates = new int[4];
+        
+        for (int cell = 0; cell < coordinates.length; cell++) {
+            coordinates[cell] = reciter.nextInt();
+        }
+        
+        /* For Testing.
+        String result = "";
+        
+        for (int row = 0; row < land.length; row++) {
+            for (int col = 0; col < land[row].length; col++) {
+                result += land[row][col] + " ";
+            }
+            result += "\n";
+        }
+        
+        System.out.println(result);
+        result = "";
+        
+        for (int cell = 0; cell < coordinates.length; cell++) {
+            result += coordinates[cell] + " ";
+        }
+        
+        System.out.println(result);
+        */
+        
+        // Next, perform the instructions.
+        
+        int ways = 0;
+        int[][] moves = new int[][] { {1,0}, {0,1}, {-1,0}, {0,-1} };
+        int xcor = coordinates[0];
+        int ycor = coordinates[1];
+        
+        while (time > 0) {
+            for (int[] step: moves) {
+                
+            }
+            time--;
+        }
+        
+        if (xcor == coordinates[2] && ycor == coordinates[3]) {
+            ways++;
+        }
+        
+        return ways;
+    }
+    
     /* For Testing.
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println(USACO.bronze("Test1.txt"));
@@ -156,6 +224,8 @@ public class USACO {
         
         System.out.println(USACO.bronze("Test8.txt"));
         System.out.println("Correct answer is 776609856.\n");
+        
+        System.out.println(USACO.silver("TestA.txt"));
     }
     */
 
