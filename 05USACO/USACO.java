@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO {
 
-    public static int bronze(String filename) {  // Needed to throw a FileNotFoundException when testing.
+    public static int bronze(String filename) throws FileNotFoundException {  // Needed to throw a FileNotFoundException when testing.
         // First, set up the local variables.
         
         File text = new File(filename);
@@ -131,7 +131,7 @@ public class USACO {
         return area * 72 * 72;
     }
     
-    public static int silver(String filename) { // Needed to throw a FileNotFoundException when testing.
+    public static int silver(String filename) throws FileNotFoundException { // Needed to throw a FileNotFoundException when testing.
         //First, set up the local variables.
         
         File document = new File(filename);
@@ -146,7 +146,7 @@ public class USACO {
         
         for (int row = 0; row < land.length; row++) {
             line = reciter.nextLine();
-
+	    
             for (int col = 0; col < land[row].length; col++) {
                 land[row][col] = line.charAt(col);
             }
@@ -155,7 +155,7 @@ public class USACO {
         int[] coordinates = new int[4];
         
         for (int cell = 0; cell < coordinates.length; cell++) {
-            coordinates[cell] = reciter.nextInt();
+            coordinates[cell] = reciter.nextInt() - 1;
         }
         
         /* For Testing.
@@ -179,11 +179,6 @@ public class USACO {
         */
         
         // Next, perform the instructions.
-        
-        int ways = 0;
-        int[][] moves = new int[][] { {1,0}, {0,1}, {-1,0}, {0,-1} };
-        int xcor = coordinates[0];
-        int ycor = coordinates[1];
 
 	int[][] old = new int[length][width];
 	int[][] current = new int[length][width];
@@ -196,30 +191,44 @@ public class USACO {
 		}
 	    }
 	}
+
+	current[coordinates[0]][coordinates[1]] = 1;
 	
         while (time > 0) {
 	    for (int row = 0; row < land.length; row++) {
 		for (int col = 0; col < land[row].length; col++) {
-		    old[row][col] = current[row][col];	     
+		    old[row][col] = current[row][col];
 		}
 	    }
-
+	    
 	    for (int row = 0; row < current.length; row++) {
-		for (int col = 0; col < current[row].length; col++) {//fix adder
-	    for (int[] step: moves) {
-                
+		for (int col = 0; col < current[row].length; col++) {
+		    if (current[row][col] != -1) {
+			if (row - 1 >= 0 && current[row - 1][col] > 0) {
+			    current[row][col] += old[row - 1][col];
+			}
+		    
+			if (col - 1 >= 0 && current[row][col - 1] > 0) {
+			    current[row][col] += old[row][col - 1];
+			}
+		    
+			if (row + 1 < old.length && current[row + 1][col] > 0) {
+			    current[row][col] += old[row + 1][col];
+			}
+		    
+			if (col + 1 < old[row].length && current[row][col + 1] > 0) {
+			    current[row][col] += old[row][col + 1];
+			}
+		    }
+		}
 	    }
+	    
 	    time--;
 	}
-	    
-	if (xcor == coordinates[2] && ycor == coordinates[3]) {
-	    ways++;
-        }
         
-        return ways;
+        return current[coordinates[2]][coordinates[3]];
     }
     
-    /* For Testing.
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println(USACO.bronze("Test1.txt"));
         System.out.println("Correct answer is 342144.\n");
@@ -246,7 +255,28 @@ public class USACO {
         System.out.println("Correct answer is 776609856.\n");
         
         System.out.println(USACO.silver("TestA.txt"));
+	System.out.println("Correct answer is 1.\n");
+
+	System.out.println(USACO.silver("TestB.txt"));
+        System.out.println("Correct answer is 74.\n");
+        
+        System.out.println(USACO.silver("TestC.txt"));
+        System.out.println("Correct answer is 6435.\n");
+        
+        System.out.println(USACO.silver("TestD.txt"));
+        System.out.println("Correct answer is 339246.\n");
+        
+        System.out.println(USACO.silver("TestE.txt"));
+        System.out.println("Correct answer is 0.\n");
+        
+        System.out.println(USACO.silver("TestF.txt"));
+        System.out.println("Correct answer is 14396412.\n");
+        
+        System.out.println(USACO.silver("TestG.txt"));
+        System.out.println("Correct answer is 1533810.\n");
+        
+        System.out.println(USACO.silver("TestH.txt"));
+        System.out.println("Correct answer is 456055.\n");
     }
-    */
 
 }
