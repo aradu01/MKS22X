@@ -200,7 +200,30 @@ public class USACO {
 		    old[row][col] = current[row][col];
 		}
 	    }
-	    
+
+	    for (int row = 0; row < current.length; row++) {
+		for (int col = 0; col < current[row].length; col++) {
+		    if (current[row][col] != -1) {
+			if (row - 1 >= 0 && old[row - 1][col] > 0) {
+			    current[row - 1][col] += old[row][col];
+			}
+
+			if (col - 1 >= 0 && old[row][col - 1] > 0) {
+			    current[row][col - 1] += old[row][col];
+			}
+
+			if (row + 1 < current.length && old[row + 1][col] > 0) {
+			    current[row + 1][col] += old[row][col];
+			}
+
+			if (col + 1 < current[row].length && old[row][col + 1] > 0) {
+			    current[row][col + 1] += old[row][col];
+			}
+		    }
+		}
+	    }
+
+	    /*
 	    for (int row = 0; row < current.length; row++) {
 		for (int col = 0; col < current[row].length; col++) {
 		    if (current[row][col] != -1) {
@@ -222,6 +245,7 @@ public class USACO {
 		    }
 		}
 	    }
+	    */
 	    
 	    time--;
 	}
