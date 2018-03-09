@@ -200,51 +200,68 @@ public class USACO {
 		    old[row][col] = current[row][col];
 		}
 	    }
-
+	    
+	    /* Attempted Different Algorithm.
 	    for (int row = 0; row < current.length; row++) {
 		for (int col = 0; col < current[row].length; col++) {
-		    if (current[row][col] != -1) {
-			if (row - 1 >= 0 && old[row - 1][col] > 0) {
-			    current[row - 1][col] += old[row][col];
+		    if (current[row][col] > 0) {
+			if (row - 1 >= 0 && current[row - 1][col] > 0) {
+			    			System.out.println("YES");
+
+			    current[row - 1][col] += current[row][col];
 			}
 
-			if (col - 1 >= 0 && old[row][col - 1] > 0) {
-			    current[row][col - 1] += old[row][col];
+			if (col - 1 >= 0 && current[row][col - 1] > 0) {
+			    current[row][col - 1] += current[row][col];
 			}
 
-			if (row + 1 < current.length && old[row + 1][col] > 0) {
-			    current[row + 1][col] += old[row][col];
+			if (row + 1 < current.length && current[row + 1][col] > 0) {
+			    current[row + 1][col] += current[row][col];
 			}
 
-			if (col + 1 < current[row].length && old[row][col + 1] > 0) {
-			    current[row][col + 1] += old[row][col];
+			if (col + 1 < current[row].length && current[row][col + 1] > 0) {
+			    current[row][col + 1] += current[row][col];
 			}
 		    }
 		}
 	    }
-
-	    /*
+	    */
+	    
 	    for (int row = 0; row < current.length; row++) {
 		for (int col = 0; col < current[row].length; col++) {
 		    if (current[row][col] != -1) {
-			if (row - 1 >= 0 && current[row - 1][col] > 0) {
+			current[row][col] = 0;
+			
+			if (row - 1 >= 0 && current[row - 1][col] >= 0) {
 			    current[row][col] += old[row - 1][col];
 			}
 		    
-			if (col - 1 >= 0 && current[row][col - 1] > 0) {
+			if (col - 1 >= 0 && current[row][col - 1] >= 0) {
 			    current[row][col] += old[row][col - 1];
 			}
 		    
-			if (row + 1 < old.length && current[row + 1][col] > 0) {
+			if (row + 1 < old.length && current[row + 1][col] >= 0) {
 			    current[row][col] += old[row + 1][col];
 			}
 		    
-			if (col + 1 < old[row].length && current[row][col + 1] > 0) {
+			if (col + 1 < old[row].length && current[row][col + 1] >= 0) {
 			    current[row][col] += old[row][col + 1];
 			}
 		    }
 		}
 	    }
+
+	    /* For Testing.
+	    String response = "";
+        
+	    for (int a = 0; a < current.length; a++) {
+		for (int b = 0; b < current[a].length; b++) {
+		    response += current[a][b] + " ";
+		}
+		response += "\n";
+	    }
+        
+	    System.out.println(response);
 	    */
 	    
 	    time--;
@@ -252,8 +269,11 @@ public class USACO {
         
         return current[coordinates[2]][coordinates[3]];
     }
-    
+
+    /* For Testing.
     public static void main(String[] args) throws FileNotFoundException {
+	System.out.println("---------- Bronze Testing ----------\n");
+	
         System.out.println(USACO.bronze("Test1.txt"));
         System.out.println("Correct answer is 342144.\n");
         
@@ -277,10 +297,12 @@ public class USACO {
         
         System.out.println(USACO.bronze("Test8.txt"));
         System.out.println("Correct answer is 776609856.\n");
+									 
+	System.out.println("---------- Silver Testing ----------\n");
         
         System.out.println(USACO.silver("TestA.txt"));
 	System.out.println("Correct answer is 1.\n");
-
+	
 	System.out.println(USACO.silver("TestB.txt"));
         System.out.println("Correct answer is 74.\n");
         
@@ -302,5 +324,6 @@ public class USACO {
         System.out.println(USACO.silver("TestH.txt"));
         System.out.println("Correct answer is 456055.\n");
     }
-
+    */
+    
 }
