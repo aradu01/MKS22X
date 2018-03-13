@@ -8,11 +8,33 @@ public class Quick {
         
         int low = start;
         int high = end;
+	int storage;
         
         // Place the partition value first.
         
         data[result] = data[end];
         data[end] = partition;
+
+	/* Slower Code.
+	for (int index = start + 1; index <= end / 2; index++) {
+	    if (data[index] < partition) {
+		storage = data[low];
+		data[low] = data[index];
+		data[index] = storage;
+		low++;
+	    }
+
+	    if (data[index] > partition) {
+		storage = data[high];
+		data[high] = data[index];
+		data[index] = storage;
+		high--;
+	    }
+	}
+
+	data[start] = data[high];
+	data[high] = partition;
+	*/	
 
         /* Previous Attempt.
         int element = data[start];
@@ -47,8 +69,6 @@ public class Quick {
         }
         */
         
-        int storage;
-        
         /* Second Attempt.
         for (int index = start + 1; index <= end; index++) {
             if (data[index] < partition) {
@@ -76,7 +96,7 @@ public class Quick {
             data[high] = partition;
         }
         */
-        
+	
         for (int index = start; index < end; index++) {
             if (data[index] < partition) {
                 storage = data[index];
@@ -85,7 +105,10 @@ public class Quick {
                 low++;
             }
         }
-        
+
+	data[end] = data[low];
+        data[low] = partition;
+	
         /* For Testing.
         String answer = "";
         for (int num: data) {
@@ -93,16 +116,21 @@ public class Quick {
         }
         System.out.println(answer);
         */
-        
-        // Put partition value back in place.
-        
-        data[end] = data[low];
-        data[low] = partition;
-        
-        return partition;
+	
+        return low;
     }
-    
-    /* For Testing.
+
+    public static int quickselect(int[] data, int k) {
+	if (partition(data, 0, data.length) == k) {}
+	    
+    }
+
+    private static int help(int[] data, int k, int start, int end) {
+	if (partition(data, start, end) == k - 1) {//
+	    return partition(data, start, end);
+	}
+	return
+
     public static void main(String[] args) {
         Quick a = new Quick();
         int[] b = new int[] {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
@@ -118,6 +146,5 @@ public class Quick {
             System.out.println(answer);
         }
     }
-    */
     
 }
