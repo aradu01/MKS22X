@@ -1,38 +1,67 @@
 public class Quick {
     
+    private static void swap(int[] data, int first, int second) {
+        int storage;
+        
+        storage = data[first];
+        data[first] = data[second];
+        data[second] = storage;
+    }
+    
     public static int partition(int[] data, int start, int end) {
-        // Set local variables first.
+        // Modified from in-class lesson.
         
         int result = (int) (Math.random() * (end - start)) + start;
         int partition = data[result];
         
-        int low = start;
+        int low = start + 1;
         int high = end;
-	int storage;
-                
-        data[result] = data[end];
-        data[end] = partition;
+        
+        swap(data, 0, result);
+        
+        while (low <= high) {
+            if (data[low] < partition) {
+                // System.out.println("LOW");
+                low++;
+            }
 
-	/* Slower Code.
-	for (int index = start + 1; index <= end / 2; index++) {
-	    if (data[index] < partition) {
-		storage = data[low];
-		data[low] = data[index];
-		data[index] = storage;
-		low++;
-	    }
+            else if (data[low] > partition) {
+                swap(data, low, high);
+                // System.out.println(low + " " + high);
+                high--;
+            }
+            
+            /* For Testing.
+            String answer = "";
+            for (int num: data) {
+                answer += num + " ";
+            }
+            System.out.println(answer);
+            */
+        }
+        
+        swap(data, 0, high);
 
-	    if (data[index] > partition) {
-		storage = data[high];
-		data[high] = data[index];
-		data[index] = storage;
-		high--;
-	    }
-	}
+        /* Slower Code.
+        for (int index = start + 1; index <= end / 2; index++) {
+            if (data[index] < partition) {
+                storage = data[low];
+                data[low] = data[index];
+                data[index] = storage;
+                low++;
+            }
 
-	data[start] = data[high];
-	data[high] = partition;
-	*/	
+            if (data[index] > partition) {
+                storage = data[high];
+                data[high] = data[index];
+                data[index] = storage;
+                high--;
+            }
+        }
+
+        data[start] = data[high];
+        data[high] = partition;
+        */
 
         /* Previous Attempt.
         int element = data[start];
@@ -94,7 +123,11 @@ public class Quick {
             data[high] = partition;
         }
         */
-	
+        
+        /* My Working Version.
+        data[result] = data[end];
+        data[end] = partition;
+            
         for (int index = start; index < end; index++) {
             if (data[index] < partition) {
                 storage = data[index];
@@ -104,8 +137,9 @@ public class Quick {
             }
         }
 
-	data[end] = data[low];
+        data[end] = data[low];
         data[low] = partition;
+        */
 	
         /* For Testing.
         String answer = "";
@@ -114,63 +148,106 @@ public class Quick {
         }
         System.out.println(answer);
         */
-	
-        return low;
+
+        return high;
     }
 
     public static int quickselect(int[] data, int k) {
-	return help(data, k, 0, data.length - 1);   
+        if (k < 0 || k >= data.length) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        
+        return helpSelect(data, k, 0, data.length - 1);   
     }
 
-    private static int help(int[] data, int k, int start, int end) {
-	int current = partition(data, start, end);
-
-	String answer = "";
+    private static int helpSelect(int[] data, int k, int start, int end) {
+        int current = partition(data, start, end);
+        
+        /* For Testing.
+        String answer = "";
         for (int num: data) {
             answer += num + " ";
         }
-	
         System.out.println(answer);
-	
-	if (current == k) {
-	    return current;
-	}
+        */
+        
+        if (start == end) {
+            return data[start];
+        }
+        
+        if (current == k) {
+            return data[current];
+        }
 
-	if (current < k) {
-	    return help(data, k, k + 1, end);
-	}
+        if (current < k) {
+            return helpSelect(data, k, current + 1, end);
+        }
 
-	if (current > k) {
-	    return help(data, k, start, k - 1);
-	}
-	
-	return -999;
+        if (current > k) {
+            return helpSelect(data, k, start, current - 1);
+        }
+
+        return -999;
+    }
+    
+    public static void quicksort(int[] array) {
+        helpQuick(array, 0, array.length - 1);
+    }
+    
+    private static void helpQuick(int[] array, int start, int end) {
+        if (array.length >= 2) {
+            int current = partition(array, start, end);
+        
+            helpQuick(array, start, current - 1);
+            helpQuick(array, current + 1, end);
+        }
     }
 
     public static void main(String[] args) {
         int[] b = new int[] {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
 
-	/*
-	System.out.println("\n" + "----- Partition -----" + "\n");
+        System.out.println("\n" + "----- Partition -----" + "\n");
         
         for (int i = 1; i < 10; i++) {
             System.out.println(partition(b, 0, 9));
-            String answer = "";
             
+            String answer = "";
             for (int num: b) {
                 answer += num + " ";
             }
-            
             System.out.println(answer);
         }
-	*/
+        
+        System.out.println("\n" + "----- Quick Select -----" + "\n");
 
-	System.out.println("\n" + "----- Quick Select -----" + "\n");
-
-	for (int counter = 0; counter < b.length; counter++) {
-	    quickselect(b, counter);
-	    System.out.println(b);
-	}
+        for (int counter = 0; counter < b.length; counter++) {
+            System.out.println("---");
+            
+            String response = "";
+            for (int num: b) {
+                response += num + " ";
+            }
+            System.out.println(response);
+            
+            System.out.println(counter);
+            System.out.println(quickselect(b, counter));
+        }
+        
+        System.out.println("\n" + "----- Quick Sort -----" + "\n");
+        
+        String result = "";
+        for (int num: b) {
+            result += num + " ";
+        }
+        System.out.println(result);
+        
+        quicksort(b);
+        
+        String product = "";
+        for (int num: b) {
+            product += num + " ";
+        }
+        System.out.println(product);
     }
     
 }
