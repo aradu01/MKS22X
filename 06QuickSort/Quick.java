@@ -15,23 +15,30 @@ public class Quick {
         int partition = data[result];
         
         int low = start + 1;
+	int middle = start + 2;
         int high = end;
         
         swap(data, 0, result);
         
-        while (low <= high) {
-            if (data[low] < partition) {
+        while (middle <= high) {
+            if (data[middle] < partition) {
                 // System.out.println("LOW");
+		swap(data, low, middle);
                 low++;
+		middle++;
             }
 
-            else if (data[low] > partition) {
-                swap(data, low, high);
+            else if (data[middle] > partition) {
+                swap(data, middle, high);
                 // System.out.println(low + " " + high);
                 high--;
             }
-            
-            /* For Testing.
+
+	    else {
+		middle++;
+	    }
+
+	    /* For Testing.
             String answer = "";
             for (int num: data) {
                 answer += num + " ";
@@ -39,7 +46,8 @@ public class Quick {
             System.out.println(answer);
             */
         }
-        
+
+	swap(data, low, middle);
         swap(data, 0, high);
 
         /* Slower Code.
