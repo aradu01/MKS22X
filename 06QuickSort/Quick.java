@@ -19,10 +19,18 @@ public class Quick {
         int high = end;
         
         swap(data, 0, result);
+
+	String answer = "";
+        for (int num: data) {
+            answer += num + " ";
+        }
+        System.out.println(answer);
         
         while (middle <= high) {
+	    System.out.println(low + " " + middle + " " + high);
+	    
             if (data[middle] < partition) {
-                // System.out.println("LOW");
+                System.out.println("LOW");
 		swap(data, low, middle);
                 low++;
 		middle++;
@@ -30,21 +38,22 @@ public class Quick {
 
             else if (data[middle] > partition) {
                 swap(data, middle, high);
-                // System.out.println(low + " " + high);
+                System.out.println("HIGH");
                 high--;
             }
 
 	    else {
+		System.out.println("MIDDLE");
 		middle++;
 	    }
 
-	    /* For Testing.
+	    /* For Testing.*/
             String answer = "";
             for (int num: data) {
                 answer += num + " ";
             }
             System.out.println(answer);
-            */
+            
         }
 
 	swap(data, low, middle);
@@ -212,20 +221,20 @@ public class Quick {
     }
 
     public static void main(String[] args) {
-        int[] b = new int[] {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+        int[] b = new int[] {17, 61, 93, 67, 47, 93, 4, 12, 20, 4, 12, 44, 68};
 
         System.out.println("\n" + "----- Partition -----" + "\n");
         
-        for (int i = 1; i < 10; i++) {
-            System.out.println(partition(b, 0, 9));
+	// for (int i = 1; i < 10; i++) {
+            System.out.println(partition(b, 0, 12));
             
             String answer = "";
             for (int num: b) {
                 answer += num + " ";
             }
             System.out.println(answer);
-        }
-        
+	    //  }
+	    /*
         System.out.println("\n" + "----- Quick Select -----" + "\n");
 
         for (int counter = 0; counter < b.length; counter++) {
@@ -255,7 +264,7 @@ public class Quick {
         for (int num: b) {
             product += num + " ";
         }
-        System.out.println(product);
+        System.out.println(product);*/
     }
     
 }
