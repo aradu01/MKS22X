@@ -163,7 +163,8 @@ public class Quick {
 
         return high;
     }
-
+    
+    /* Initial Recursive Attempt.
     public static int quickselect(int[] data, int k) {
         if (k < 0 || k >= data.length) {
             throw new ArrayIndexOutOfBoundsException("Your index must be within the array.");
@@ -174,11 +175,12 @@ public class Quick {
 
     private static int helpSelect(int[] data, int k, int start, int end) {
         int current = partition(data, start, end);
+        
         System.out.println("Start: " + start + "  End: " + end);
         System.out.println("Partition at " + current);
         
         print(data);
-
+        
         if (current < k) {
             System.out.println("RIGHT");
             return helpSelect(data, k, current + 1, end);
@@ -194,22 +196,49 @@ public class Quick {
             return data[current];
         }
     }
+    */
+    
+    public static int quickselect(int[] data, int k) {
+        if (k < 0 || k >= data.length) {
+            throw new ArrayIndexOutOfBoundsException("Your index must be within the array.");
+        }
+        
+        int start = 0;
+        int end = data.length - 1;
+        int current = partition(data, start, end);
+        
+        while (current != k) {
+            if (current < k) {
+                start = current + 1;
+                current = partition(data, start, end);
+            }
+            
+            else if (current > k) {
+                end = current - 1;
+                current = partition(data, start, end);
+            }   
+        }
+        
+        return data[current];
+    }
     
     public static void quicksort(int[] array) {
-        helpQuick(array, 0, array.length - 1);
+        if (array.length >= 2) {
+            helpQuick(array, 0, array.length - 1);
+        }
     }
     
     private static void helpQuick(int[] array, int start, int end) {
-        if (array.length >= 2 && start < end) {
+        if (array.length >= 2 && start <= end) {
             if (start >= 0 && end < array.length) {
                 // System.out.println(start + " " + end);
                 int current = partition(array, start, end);
                 
-                if (start < array.length - 1) {
+                if (start <= array.length - 1) {
                     helpQuick(array, current + 1, end);
                 }
                 
-                if (end > 0) {
+                if (end >= 0) {
                     helpQuick(array, start, current - 1);
                 }
             }
