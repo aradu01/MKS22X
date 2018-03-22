@@ -30,10 +30,9 @@ public class Merge {
 	    msort(temp, data, middle + 1, end);
 	}
 
-	merge(data, temp, start, middle, high);
-    }
+	merge(data, temp, start, middle, end);
 	
-	/*
+	/* Previous Code.
         for (int index = 0; index < data.length - 1; index += 2) {
             if (data[index] < data[index + 1]) {
                 temp[index] = data[index];
@@ -48,9 +47,23 @@ public class Merge {
 	*/
     }
 
-    private static void merge(int[] data, int[] temp, int start, int middle, int high) {
-	
+    private static void merge(int[] data, int[] temp, int low, int middle, int high) {
+        if (low != high) {
+	    print(data);
+	    print(temp);
+	    System.out.println("Low: " + low + " Middle: " + middle + " High: " + high);
+	    
+	    /* Turning into Selection Sort.
+	    int lowest = 0;
+	    int start = 0;
+
+	    for (int element = 0; index < data.length; element++) {
+		for (int index = start; index < data.length; index++) {
+		    if 
+	    */
+	}
     }
+    
     
     public static void mergesort(int[] data) {
         if (data.length >= 2) {
@@ -63,5 +76,25 @@ public class Merge {
             msort(data, temp, 0, data.length - 1);
         }
     }
+
+    public static void main(String[] args) {
+        int[] b = new int[] {17, 61, 93, 67, 47, 93, 4, 12, 20, 4, 12, 44, 68};
+
+	System.out.println("\n" + "----- Swap -----" + "\n");
+        print(b);
+        swap(b, 1, 4);
+        print(b);
+        System.out.println("\n" + "----- Merge Sort -----" + "\n");
+        
+	for (int i = 1; i < 10; i++) {            
+            print(b);
+            
+            System.out.println("---");
+
+	    mergesort(b);
+            
+            // b = new int[] {5, 5, 8, 5, 5, 6, 6, 8, 6, 5, 6, 6, 6, 6,5, 6, 8, 5, 8, 8, 5};
+        }
+    }	
     
 }
