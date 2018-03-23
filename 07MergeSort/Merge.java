@@ -87,6 +87,7 @@ public class Merge {
         }
     }
 
+    /* For Testing.
     public static void main(String[] args) {
         int[] b = new int[] {17, 61, 93, 67, 47, 93, 4, 12, 20, 4, 12, 44, 68};
 	int[] c = new int[] {8, 23, 7, 2, 568, 48, 2, 468, 347, 2, 37, 1};
@@ -118,5 +119,6 @@ public class Merge {
 
 	print(a);
     }
+    */
     
 }
