@@ -33,61 +33,65 @@ public class Driver {
 	return min + (int) (Math.random() * (max-min));
     }
 
-    private static int[]makeArray(int size,int type) {
-	int[]ans = new int[size];
-	if(type == STANDARD){
-	    for(int i = 0; i < size; i++){
-		ans[i]= create(-1000000,1000000);
+    private static int[] makeArray(int size, int type) {
+	int[] ans = new int[size];
+
+	if (type == STANDARD) {
+	    for (int i = 0; i < size; i++) {
+		ans[i] = create(-1000000, 1000000);
 	    }
 	}
-	if(type == INCREASE){
+
+	if (type == INCREASE) {
 	    int current = -5 * size;
-	    for(int i = 0; i < size; i++){
-		ans[i]= create(current,current + 10);
+	    
+	    for (int i = 0; i < size; i++) {
+		ans[i] = create(current, current + 10);
 		current += 10;
 	    }
 	}
-	if(type == DECREASE){
+	
+	if (type == DECREASE) {
 	    int current = 5 * size;
-	    for(int i = 0; i < size; i++){
-		ans[i]= create(current,current + 10);
+	    
+	    for (int i = 0; i < size; i++) {
+		ans[i] = create(current, current + 10);
 		current -= 10;
 	    }
 	}
-	if(type == SMALL_RANGE){
-	    for(int i = 0; i < size; i++){
-		ans[i]= create(-5,5);
+	
+	if (type == SMALL_RANGE) {
+	    for (int i = 0; i < size; i++) {
+		ans[i] = create(-5, 5);
 	    }
 	}
-	if(type == EMPTY){
+	
+	if (type == EMPTY) {
 	    ans = new int[0];
 	}
+	
 	return ans;
     }
 
-    public static void main(String[]args){
-	if(args.length < 2)return;
-    
-	int size =  Integer.parseInt(args[0]);
-	int type =   Integer.parseInt(args[1]);
+    public static void main(String[]args){    
+	int size = Integer.parseInt(args[0]);
+	int type = Integer.parseInt(args[1]);
 
-	int [] start = makeArray(size,type);
-	int [] result = Arrays.copyOf(start,start.length);
+	int [] start = makeArray(size, type);
+	int [] result = Arrays.copyOf(start, start.length);
 	Arrays.sort(result);
     
 	long startTime = System.currentTimeMillis();
 
-	int[] test = makeArray(1000000, 2);
-
-	print(test);
-	Quick.quicksort(test);
-	print(test);
+	Quick.quicksort(start);
 	
 	long elapsedTime = System.currentTimeMillis() - startTime;
-	if(Arrays.equals(start,result)){
-	    System.out.println("PASS Case "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
-	}else{
-	    System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
+	if (Arrays.equals(start, result)) {
+	    System.out.println("PASS Case " + name(type) + " array, size:" + size + " " + elapsedTime/1000.0 + "sec ");
+	}
+
+	else {
+	    System.out.println("FAIL ! ERROR ! " + name(type) + " array, size:" + size + "  ERROR!");
 	}
     }
     

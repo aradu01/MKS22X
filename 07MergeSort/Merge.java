@@ -17,7 +17,7 @@ public class Merge {
 	    msort(temp, data, start, middle);
 	    msort(temp, data, middle + 1, end);
 	    
-	    merge(data, temp, start, middle, middle + 1, end);
+	    merge(data, temp, start, middle, middle + 1, end, start);
 	}
 		
 	/* Previous Code.
@@ -35,33 +35,27 @@ public class Merge {
 	*/
     }
 
-    private static void merge(int[] data, int[] temp, int low, int middle, int quartile, int high) {
-	int counter = low;
-	
-	if (low > middle) {
-	    counter = quartile;
-	}
-	
+    private static void merge(int[] data, int[] temp, int low, int middle, int quartile, int high, int counter) {
 	if (low <= middle && quartile <= high) {
 	    if (temp[low] < temp[quartile]) {
 		data[counter] = temp[low];
-		merge(data, temp, low + 1, middle, quartile, high);
+		merge(data, temp, low + 1, middle, quartile, high, counter + 1);
 	    }
 
 	    else {  // if (temp[low] >= temp[quartile])
 		data[counter] = temp[quartile];
-		merge(data, temp, low, middle, quartile + 1, high);
+		merge(data, temp, low, middle, quartile + 1, high, counter + 1);
 	    }
 	}
 
 	else if (low <= middle) {
 	    data[counter] = temp[low];
-	    merge(data, temp, low + 1, middle, quartile, high);
+	    merge(data, temp, low + 1, middle, quartile, high, counter + 1);
 	}
 
 	else if (quartile <= high) {
 	    data[counter] = temp[quartile];
-	    merge(data, temp, low, middle, quartile + 1, high);
+	    merge(data, temp, low, middle, quartile + 1, high, counter + 1);
 	}
 	
 	/* For Testing.
@@ -107,6 +101,22 @@ public class Merge {
 	print(c);
 	mergesort(c);
 	print(c);
-    }	
+
+	int[] a = new int[1000];
+	
+	for (int i = 0; i < a.length; i++) {
+	    a[i] = (int) (Math.random() * 1000000);
+	}
+
+	mergesort(a);
+
+	for (int x = 0; x < a.length - 1; x++) {
+	    if (a[x] > a[x + 1]) {
+		System.out.println("FAILED");
+	    }
+	}
+
+	print(a);
+    }
     
 }
