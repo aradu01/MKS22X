@@ -1,5 +1,27 @@
 public class Merge {
-    
+
+    private static void swap(int[] data, int first, int second) {
+	int storage = data[first];
+
+	data[first] = data[second];
+	data[second] = storage;
+    }
+
+    private static void insertionsort(int[] data, int start, int end) {
+	int storage;
+	int element;
+	
+	for (int index = start + 1; index <= end; index++) {
+	    storage = data[index];
+
+	    for (element = index; element > start && storage < data[element - 1]; element--) {
+		data[element] = data[element - 1];
+	    }
+
+	    data[element] = storage;
+	}
+    }
+		    
     private static void print(int[] data) {
         String result = "";
         
@@ -11,51 +33,83 @@ public class Merge {
     }
     
     private static void msort(int[] data, int[] temp, int start, int end) {
-        int middle = (start + end) / 2;
-	
-	if (end > start) {
-	    msort(temp, data, start, middle);
-	    msort(temp, data, middle + 1, end);
-	    
-	    merge(data, temp, start, middle, middle + 1, end, start);
+	if (end - start <= 10) {  // Faster sorting for smaller lists.
+	    insertionsort(data, start, end);
 	}
+
+	else {
+	    int middle = (start + end) / 2;
+	
+	    if (end > start) {
+		msort(temp, data, start, middle);
+		msort(temp, data, middle + 1, end);
+	    
+		merge(data, temp, start, middle, middle + 1, end, start);
+	    }
 		
-	/* Previous Code.
-        for (int index = 0; index < data.length - 1; index += 2) {
-            if (data[index] < data[index + 1]) {
-                temp[index] = data[index];
-                temp[index + 1] = data[index + 1];
-            }
+	    /* Previous Code.
+		for (int index = 0; index < data.length - 1; index += 2) {
+		    if (data[index] < data[index + 1]) {
+			temp[index] = data[index];
+			temp[index + 1] = data[index + 1];
+		    }
             
-            else if (data[index] > data[index + 1]) {
-                temp[index] = data[index + 1];
-                temp[index + 1] = data[index];
-            }
-        }
-	*/
+		    else if (data[index] > data[index + 1]) {
+			temp[index] = data[index + 1];
+			temp[index + 1] = data[index];
+		    }
+		}
+	    */
+	}
     }
 
     private static void merge(int[] data, int[] temp, int low, int middle, int quartile, int high, int counter) {
-	if (low <= middle && quartile <= high) {
+	while (low <= middle && quartile <= high) {
 	    if (temp[low] < temp[quartile]) {
 		data[counter] = temp[low];
-		merge(data, temp, low + 1, middle, quartile, high, counter + 1);
+		// merge(data, temp, low + 1, middle, quartile, high, counter + 1);
+
+		low++;
+		counter++;
 	    }
 
 	    else {  // if (temp[low] >= temp[quartile])
 		data[counter] = temp[quartile];
-		merge(data, temp, low, middle, quartile + 1, high, counter + 1);
+		// merge(data, temp, low, middle, quartile + 1, high, counter + 1);
+
+		quartile++;
+		counter++;
 	    }
 	}
 
-	else if (low <= middle) {
+	while (low <= middle) {
+	    /*
+	    for (int index = low; index <= middle; index++) {
+		data[counter] = temp[low];
+		counter++;
+	    }
+	    */
+	    
 	    data[counter] = temp[low];
-	    merge(data, temp, low + 1, middle, quartile, high, counter + 1);
+	    // merge(data, temp, low + 1, middle, quartile, high, counter + 1);
+
+	    low++;
+	    counter++;
 	}
 
-	else if (quartile <= high) {
+	while (quartile <= high) {
+	    /*
+	    for (int index = quartile; index <= high; index++) {
+		data[counter] = temp[quartile];
+		counter++;
+	    }
+	    */
+	    
 	    data[counter] = temp[quartile];
-	    merge(data, temp, low, middle, quartile + 1, high, counter + 1);
+	    // merge(data, temp, low, middle, quartile + 1, high, counter + 1);
+
+	    quartile++;
+	    counter++;
 	}
 	
 	/* For Testing.
@@ -73,7 +127,6 @@ public class Merge {
 	   if 
 	*/
     }
-    
     
     public static void mergesort(int[] data) {
         if (data.length >= 2) {
