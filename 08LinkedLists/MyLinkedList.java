@@ -52,6 +52,24 @@ public class MyLinkedList {
         current.setValue(value);
     }
     
+    public int indexOf(int value) {
+        Node current = first;
+        int index = 0;
+        
+        while (current != null) {
+            if (current.getValue() == value) {
+                return index;
+            }
+            
+            else {
+                current = current.getNext();
+                index++;
+            }
+        }
+        
+        return -1;
+    }
+    
     public boolean add(int value) {
         if (index < 0 || index >= length) {
             throw new IllegalStateException("Your index must be within the Linked List.");
@@ -124,6 +142,8 @@ public class MyLinkedList {
         
         current.setPrev(null);
         current.setNext(null);
+        
+        length--;
         
         return current.getValue();
     }
