@@ -3,6 +3,9 @@ public class MyLinkedList {
     private int length;
     private Node first;
     private Node last;
+
+    public MyLinkedList() {
+    }
     
     public String toString() {
         String result = "[";
@@ -19,19 +22,35 @@ public class MyLinkedList {
     public int size() {
         return length;
     }
+
+    private Node getNode(int index) {
+	int place = 0;
+	Node current = first;
+
+	while (place < index) {
+            current = current.getNext();
+            place++;
+        }
+
+	return current;
+    }
     
     public int get(int index) {
         if (index < 0 || index >= length) {
             throw new IllegalStateException("Your index must be within the Linked List.");
         }
-        
-        int place = 0;
-        Node current = first;
-        
-        while (place < index) {
+
+	Node current = getNode(index);
+
+	/*
+	int place = 0;
+	Node current = first;
+
+	while (place < index) {
             current = current.getNext();
             place++;
-        }
+	}
+	*/
         
         return current.getValue();
     }
@@ -40,15 +59,19 @@ public class MyLinkedList {
         if (index < 0 || index >= length) {
             throw new IllegalStateException("Your index must be within the Linked List.");
         }
-        
+
+        Node current = getNode(index);
+
+	/*
         int place = 0;
-        Node current = first;
-        
-        while (place < index) {
+	Node current = first;
+
+	while (place < index) {
             current = current.getNext();
             place++;
-        }
-        
+	}
+        */
+	
         current.setValue(value);
     }
     
@@ -71,31 +94,32 @@ public class MyLinkedList {
     }
     
     public boolean add(int value) {
-        if (index < 0 || index >= length) {
-            throw new IllegalStateException("Your index must be within the Linked List.");
-        }
-        
-        Node before = first;
+	/*
+	Node before = first;
         
         while (before.getNext() != null) {
             before = before.getNext();
-        }
-        
+	}
+	*/
+	
         Node addend = new Node();
         addend.setValue(value);
         
-        before.setNext(addend);
-        addend.setPrev(before);
+        last.setNext(addend);
+        addend.setPrev(last);
         
         length++;
+
+	return true;
     }
     
     public void add(int index, int value) {
         if (index < 0 || index >= length) {
             throw new IllegalStateException("Your index must be within the Linked List.");
         }
-        
-        int place = 0;
+
+	/*
+	int place = 0;
         Node before = first;
         Node after = first;
         
@@ -104,7 +128,11 @@ public class MyLinkedList {
             after = after.getNext();
             place++;
         }
-        after = after.getNext();
+	after = after.getNext();
+	*/
+        
+        Node before = getNode(index - 1);
+        Node after = getNode(index);
         
         Node additive = new Node();
         additive.setValue(value);
@@ -123,11 +151,16 @@ public class MyLinkedList {
             throw new IllegalStateException("Your index must be within the Linked List.");
         }
         
+        Node before = getNode(index - 1);
+        Node current = getNode(index);
+        Node after = getNode(index + 1);
+
+	/*
         int place = 0;
         Node before = first;
         Node current = first;
-        Node after = first;
-        
+	Node after = first;
+
         while (place < index - 1) {
             before = before.getNext();
             current = current.getNext();
@@ -136,6 +169,7 @@ public class MyLinkedList {
         }
         current = current.getNext();
         after = after.getNext().getNext();
+	*/
         
         before.setNext(after);
         after.setPrev(before);

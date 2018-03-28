@@ -3,13 +3,17 @@ public class Node {
     private int data;
     private Node prev;
     private Node next;
+
+    public Node(int value) {
+	data = value;
+    }
     
     public String toString() {
-        return this.data;
+        return data + "";
     }
     
     public Node getNext() {
-        return this.next;
+        return next;
     }
     
     public void setNext(Node replacement) {
@@ -17,15 +21,15 @@ public class Node {
     }
     
     public Node getPrev() {
-        return this.prev;
+        return prev;
     }
     
-    public Node setPrev(Node replacement) {
+    public void setPrev(Node replacement) {
         prev = replacement;
     }
     
     public int getValue() {
-        return this.data;
+        return data;
     }
     
     public void setValue(int replacement) {
