@@ -12,12 +12,24 @@ public class Node {
         return this.next;
     }
     
+    public void setNext(Node replacement) {
+        next = replacement;
+    }
+    
     public Node getPrev() {
         return this.prev;
     }
     
+    public Node setPrev(Node replacement) {
+        prev = replacement;
+    }
+    
     public int getValue() {
         return this.data;
+    }
+    
+    public void setValue(int replacement) {
+        data = replacement;
     }
     
 }
