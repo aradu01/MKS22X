@@ -17,7 +17,7 @@ public class Node {
     }
     
     public int getValue() {
-        return this.value;
+        return this.data;
     }
     
 }
