@@ -68,6 +68,8 @@ public class MyLinkedList {
         
         before.setNext(addend);
         addend.setPrev(before);
+        
+        length++;
     }
     
     public void add(int index, int value) {
@@ -94,6 +96,36 @@ public class MyLinkedList {
         
         additive.setNext(after);
         after.setPrev(additive);
+        
+        length++;
+    }
+    
+    public int remove(int index) {
+        if (index < 0 || index >= length) {
+            throw new IllegalStateException("Your index must be within the Linked List.");
+        }
+        
+        int place = 0;
+        Node before = first;
+        Node current = first;
+        Node after = first;
+        
+        while (place < index - 1) {
+            before = before.getNext();
+            current = current.getNext();
+            after = after.getNext();
+            place++;
+        }
+        current = current.getNext();
+        after = after.getNext().getNext();
+        
+        before.setNext(after);
+        after.setPrev(before);
+        
+        current.setPrev(null);
+        current.setNext(null);
+        
+        return current.getValue();
     }
     
 }
