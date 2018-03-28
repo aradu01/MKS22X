@@ -7,6 +7,13 @@ public class Node {
     public Node(int value) {
 	data = value;
     }
+
+    public Node(int value, Node before, Node after) {
+	data = value;
+
+	prev = before;
+	next = after;
+    }
     
     public String toString() {
         return data + "";

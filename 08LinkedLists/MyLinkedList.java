@@ -100,13 +100,25 @@ public class MyLinkedList {
         while (before.getNext() != null) {
             before = before.getNext();
 	}
-	*/
+	*/  
 	
-        Node addend = new Node();
-        addend.setValue(value);
-        
-        last.setNext(addend);
-        addend.setPrev(last);
+        Node addend = new Node(value);
+
+	if (length == 0) {
+	    first = addend;
+	    last = first;
+	}
+
+	else if (length == 1) {
+	    last = addend;
+	    first.setNext(last);
+	    last.setPrev(first);
+	}
+
+	else {
+	    last.setNext(addend);
+	    addend.setPrev(last);
+	}
         
         length++;
 
@@ -114,7 +126,7 @@ public class MyLinkedList {
     }
     
     public void add(int index, int value) {
-        if (index < 0 || index >= length) {
+        if (index < 0 || index > length) {
             throw new IllegalStateException("Your index must be within the Linked List.");
         }
 
@@ -130,18 +142,36 @@ public class MyLinkedList {
         }
 	after = after.getNext();
 	*/
+
+	Node additive = new Node(value);
+	
+        if (index == 0) {
+	    if (length == 0) {
+		first = additive;
+		last = first;
+	    }
+
+	    else {
+		first.setPrev(additive);
+		additive.setNext(first);
+		first = additive;
+	    }
+	}
+
+	else if (index == length) {
+	    add(value);
+	}
+	   
+	else {    
+	    Node before = getNode(index - 1);
+	    Node after = getNode(index);
+                
+	    before.setNext(additive);
+	    additive.setPrev(before);
         
-        Node before = getNode(index - 1);
-        Node after = getNode(index);
-        
-        Node additive = new Node();
-        additive.setValue(value);
-        
-        before.setNext(additive);
-        additive.setPrev(before);
-        
-        additive.setNext(after);
-        after.setPrev(additive);
+	    additive.setNext(after);
+	    after.setPrev(additive);
+	}
         
         length++;
     }
