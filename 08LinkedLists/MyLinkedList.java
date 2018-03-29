@@ -3,26 +3,36 @@ public class MyLinkedList {
     private int length;
     private Node first;
     private Node last;
-
-    public MyLinkedList() {
-    }
     
     public String toString() {
         String result = "[";
         Node current = first;
         
         while (current != null) {
-            result += current.getValue() + ", ";
+	    if (current.getNext() == null) {
+		result += current.getValue();
+	    }
+
+	    else {
+		result += current.getValue() + ", ";
+	    }
+	    
             current = current.getNext();
         }
         
         return result + "]";
     }
+
+    public void clear() {
+	first = null;
+	last = null;
+	length = 0;
+    }
     
     public int size() {
         return length;
     }
-
+    
     private Node getNode(int index) {
 	int place = 0;
 	Node current = first;
@@ -31,7 +41,7 @@ public class MyLinkedList {
             current = current.getNext();
             place++;
         }
-
+	
 	return current;
     }
     
@@ -93,7 +103,7 @@ public class MyLinkedList {
         return -1;
     }
     
-    public boolean add(int value) {
+    public boolean add(Integer value) {
 	/*
 	Node before = first;
         
@@ -118,6 +128,7 @@ public class MyLinkedList {
 	else {
 	    last.setNext(addend);
 	    addend.setPrev(last);
+	    last = addend;
 	}
         
         length++;
@@ -210,6 +221,55 @@ public class MyLinkedList {
         length--;
         
         return current.getValue();
+    }
+
+    // Below lies the private Node class.
+
+    private class Node {
+
+	private int data;
+	private Node prev;
+	private Node next;
+
+	public Node(int value) {
+	    data = value;
+	}
+
+	public Node(int value, Node before, Node after) {
+	    data = value;
+
+	    prev = before;
+	    next = after;
+	}
+    
+	public String toString() {
+	    return data + "";
+	}
+    
+	public Node getNext() {
+	    return next;
+	}
+    
+	public void setNext(Node replacement) {
+	    next = replacement;
+	}
+    
+	public Node getPrev() {
+	    return prev;
+	}
+    
+	public void setPrev(Node replacement) {
+	    prev = replacement;
+	}
+    
+	public int getValue() {
+	    return data;
+	}
+    
+	public void setValue(int replacement) {
+	    data = replacement;
+	}
+    
     }
     
 }
