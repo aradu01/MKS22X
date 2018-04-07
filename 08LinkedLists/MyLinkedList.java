@@ -27,15 +27,25 @@ public class MyLinkedList {
         return result + "]";
     }
 
-    public void clear() {
+    public void clear() {  // Doesn't throw exceptions.
         first = null;
         last = null;
         length = 0;
     }
     
-    public int size() {
+    public int size() {  // Doesn't throw exceptions.
         return length;
     }
+    
+    /* For Testing.
+    public Node getFirst() {      
+        return first;
+    }
+    
+    public Node getLast() {
+        return last;
+    }
+    */
     
     private Node getNode(int index) {
         int place = 0;
@@ -49,7 +59,7 @@ public class MyLinkedList {
         return current;
     }
     
-    public Integer get(int index) {
+    public Integer get(int index) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
@@ -69,7 +79,7 @@ public class MyLinkedList {
         return new Integer(current.getValue());
     }
     
-    public Integer set(int index, Integer value) {
+    public Integer set(int index, Integer value) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
@@ -91,7 +101,7 @@ public class MyLinkedList {
         return new Integer(result);
     }
     
-    public int indexOf(Integer value) {
+    public int indexOf(Integer value) {  // Doesn't throw exceptions.
         Node current = first;
         int index = 0;
         
@@ -109,7 +119,7 @@ public class MyLinkedList {
         return -1;
     }
     
-    public boolean add(Integer value) {
+    public boolean add(Integer value) {  // Doesn't throw exceptions.
         /*
         Node before = first;
         
@@ -142,7 +152,7 @@ public class MyLinkedList {
         return true;
     }
     
-    public void add(int index, Integer value) {
+    public void add(int index, Integer value) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException();
         }
@@ -179,7 +189,7 @@ public class MyLinkedList {
             add(value);
         }
 
-        else {    
+        else {
             Node before = getNode(index - 1);
             Node after = getNode(index);
 
@@ -193,19 +203,20 @@ public class MyLinkedList {
         length++;
     }
     
-    public boolean remove(Integer value) {
+    public boolean remove(Integer value) {  // Doesn't throw exceptions.
         int index = indexOf(value);
         
         if (index == -1) {
-            return true;
+            return false;
         }
         
         else {
-            return remove(index);
+            remove(index);
+            return true;
         }
     }
     
-    public boolean remove(int index) {
+    public Integer remove(int index) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
@@ -228,7 +239,11 @@ public class MyLinkedList {
         
         Node deletion;
         
-        if (length == 1) {
+        if (length == 0) {
+            return null;
+        }
+        
+        else if (length == 1) {
             deletion = getNode(0);
             clear();
         }
@@ -263,8 +278,8 @@ public class MyLinkedList {
         
         length--;
         
-        // return new Integer(deletion.getValue());
-        return true;
+        return new Integer(deletion.getValue());
+        // return true;
     }
 
     // Below lies the private Node class.

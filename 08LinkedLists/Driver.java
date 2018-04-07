@@ -4,12 +4,14 @@ public class Driver {
         System.out.println();
         System.out.println("--- Get ---");
         MyLinkedList a = new MyLinkedList();
+        // System.out.println("First: " + a.getFirst() + " Last: " + a.getLast());
         
         for (int x = 0; x < 10; x++) {
             a.add(new Integer((int) (Math.random() * 100)));
         }
         
         System.out.println(a);
+        // System.out.println("First: " + a.getFirst() + " Last: " + a.getLast());
         
         for (int y = 0; y < 10; y++) {
             System.out.println(y + ": " + a.get(y));
@@ -29,6 +31,7 @@ public class Driver {
         }
         
         System.out.println(a);
+        // System.out.println("First: " + a.getFirst() + " Last: " + a.getLast());
         
         System.out.println();
         System.out.println("--- Index Of ---");
@@ -49,6 +52,7 @@ public class Driver {
 
         System.out.println(b);
         System.out.println("Size: " + b.size());
+        // System.out.println("First: " + b.getFirst() + " Last: " + b.getLast());
         
         System.out.println();
         System.out.println("--- Add At Index ---");
@@ -86,16 +90,29 @@ public class Driver {
         System.out.println(c);
         System.out.println("Size: " + c.size());
         
-        System.out.println("Removed " + c.get(0) + " at index 0");
-        c.remove(0);
+        System.out.println("Removed " + c.remove(7) + " at index 7");
+        
+        System.out.println("Removed " + c.remove(4) + " at index 4");
+        
+        System.out.println("Removed " + c.remove(0) + " at index 0");
+        
+        /*
+        System.out.println("Removed " + c.get(7) + " at index 7");
+        c.remove(7);
         
         System.out.println("Removed " + c.get(4) + " at index 4");
         c.remove(4);
         
-        System.out.println("Removed " + c.get(7) + " at index 7");
-        c.remove(7);
+        System.out.println("Removed " + c.get(0) + " at index 0");
+        c.remove(0);
+        */
         
         System.out.println(c);
+        
+        /*
+        System.out.println("First: " + c.getFirst() + " Last: " + c.getLast());
+        System.out.println("Second: " + c.getFirst().getNext() + " Penultimate: " + c.getLast().getPrev());
+        */
     }
 
 }
