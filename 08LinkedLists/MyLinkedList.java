@@ -187,6 +187,7 @@ public class MyLinkedList {
 
         else if (index == length) {
             add(value);
+	    length--;
         }
 
         else {
@@ -330,5 +331,7 @@ public class MyLinkedList {
         }
     
     }
+
+    // Below lies the private class.
     
 }
