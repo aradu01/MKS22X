@@ -1,4 +1,6 @@
-public class MyLinkedListImproved<T> {
+import java.util.Iterator;
+
+public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iterable<Type> {
 
     private int length;
     private Node first;
@@ -59,7 +61,7 @@ public class MyLinkedListImproved<T> {
         return current;
     }
     
-    public T get(int index) {  // Throws IndexOutOfBoundsException.
+    public Type get(int index) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
@@ -76,16 +78,16 @@ public class MyLinkedListImproved<T> {
         }
         */
         
-        return new T(current.getValue());
+        return current.getValue();
     }
     
-    public T set(int index, Integer value) {  // Throws IndexOutOfBoundsException.
+    public Type set(int index, Type value) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
 
         Node current = getNode(index);
-        int result = current.getValue();
+        Type result = current.getValue();
 
 	/*
         int place = 0;
@@ -97,16 +99,16 @@ public class MyLinkedListImproved<T> {
         }
         */
 	
-        current.setValue(new T(value));
-        return new T(result);
+        current.setValue(value);
+        return result;
     }
     
-    public int indexOf(Integer value) {  // Doesn't throw exceptions.
+    public int indexOf(Type value) {  // Doesn't throw exceptions.
         Node current = first;
         int index = 0;
         
         while (current != null) {
-            if (current.getValue() == value) {
+            if (current.getValue().equals(value)) {
                 return index;
             }
             
@@ -119,7 +121,7 @@ public class MyLinkedListImproved<T> {
         return -1;
     }
     
-    public boolean add(Integer value) {  // Doesn't throw exceptions.
+    public boolean add(Type value) {  // Doesn't throw exceptions.
         /*
         Node before = first;
         
@@ -152,7 +154,7 @@ public class MyLinkedListImproved<T> {
         return true;
     }
     
-    public void add(int index, Integer value) {  // Throws IndexOutOfBoundsException.
+    public void add(int index, Type value) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException();
         }
@@ -204,7 +206,7 @@ public class MyLinkedListImproved<T> {
         length++;
     }
     
-    public boolean remove(Integer value) {  // Doesn't throw exceptions.
+    public boolean remove(Type value) {  // Doesn't throw exceptions.
         int index = indexOf(value);
         
         if (index == -1) {
@@ -217,7 +219,7 @@ public class MyLinkedListImproved<T> {
         }
     }
     
-    public Integer remove(int index) {  // Throws IndexOutOfBoundsException.
+    public Type remove(int index) {  // Throws IndexOutOfBoundsException.
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException();
         }
@@ -279,7 +281,7 @@ public class MyLinkedListImproved<T> {
         
         length--;
         
-        return new Integer(deletion.getValue());
+        return deletion.getValue();
         // return true;
     }
 
@@ -287,15 +289,15 @@ public class MyLinkedListImproved<T> {
 
     private class Node {
 
-        private int data;
+        private Type data;
         private Node prev;
         private Node next;
 
-        public Node(int value) {
+        public Node(Type value) {
             data = value;
         }
 
-        public Node(int value, Node before, Node after) {
+        public Node(Type value, Node before, Node after) {
             data = value;
 
             prev = before;
@@ -322,12 +324,53 @@ public class MyLinkedListImproved<T> {
             prev = replacement;
         }
 
-        public int getValue() {
+        public Type getValue() {
             return data;
         }
 
-        public void setValue(int replacement) {
+        public void setValue(Type replacement) {
             data = replacement;
         }
     
     }
+
+    // Below lies the private LinkedListIterator class.
+
+    public Iterator<Type> iterator() {
+	return new LinkedListIterator(first);
+    }
+    
+    private class LinkedListIterator implements Iterator<Type> {
+	
+	private Node next;
+
+	public LinkedListIterator(Node begin) {
+	    next = begin;
+	}
+
+	public boolean hasNext() {
+	    if (next == null) {
+		return false;
+	    }
+
+	    else {
+		return true;
+	    }
+	}
+
+	public Type next() {
+	    if (hasNext()) {
+		Node result = next;
+		next = next.getNext();
+		
+		return result.getValue();
+	    }
+
+	    else {
+		return null;
+	    }
+	}
+	
+    }
+    
+}
