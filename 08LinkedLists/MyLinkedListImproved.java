@@ -367,7 +367,7 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
 	    }
 
 	    else {
-		return null;
+		throw new NoSuchElementException();
 	    }
 	}
 	
