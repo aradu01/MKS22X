@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iterable<Type> {
 
@@ -349,6 +350,9 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
 	}
 
 	public boolean hasNext() {
+	    return next != null;
+
+	    /*
 	    if (next == null) {
 		return false;
 	    }
@@ -356,6 +360,7 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
 	    else {
 		return true;
 	    }
+	    */
 	}
 
 	public Type next() {
