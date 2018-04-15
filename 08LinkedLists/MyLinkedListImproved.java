@@ -90,7 +90,7 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
         Node current = getNode(index);
         Type result = current.getValue();
 
-	/*
+        /*
         int place = 0;
         Node current = first;
 
@@ -285,6 +285,52 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
         return deletion.getValue();
         // return true;
     }
+    
+    public int max() {
+        if (length == 0) {
+            return -1;
+        }
+        
+        else {
+            int index = 0;
+            int counter = 0;
+            Node current = first;
+            
+            while (current != null) {
+                if (current.getValue().compareTo(get(index)) < 0) {
+                    index = counter;
+                }
+                
+                current = current.getNext();
+                counter++;
+            }
+            
+            return index;
+        }
+    }
+    
+    public int min() {
+        if (length == 0) {
+            return -1;
+        }
+        
+        else {
+            int index = 0;
+            int counter = 0;
+            Node current = first;
+            
+            while (current != null) {
+                if (current.getValue().compareTo(get(index)) > 0) {
+                    index = counter;
+                }
+                
+                current = current.getNext();
+                counter++;
+            }
+            
+            return index;
+        }
+    }
 
     // Below lies the private Node class.
 
@@ -338,43 +384,43 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
     // Below lies the private LinkedListIterator class.
 
     public Iterator<Type> iterator() {
-	return new LinkedListIterator(first);
+        return new LinkedListIterator(first);
     }
     
     private class LinkedListIterator implements Iterator<Type> {
-	
-	private Node next;
 
-	public LinkedListIterator(Node begin) {
-	    next = begin;
-	}
+        private Node next;
 
-	public boolean hasNext() {
-	    return next != null;
+        public LinkedListIterator(Node begin) {
+            next = begin;
+        }
+
+        public boolean hasNext() {
+            return next != null;
 
 	    /*
 	    if (next == null) {
-		return false;
+            return false;
 	    }
 
 	    else {
-		return true;
+            return true;
 	    }
 	    */
-	}
+        }
 
-	public Type next() {
-	    if (hasNext()) {
-		Node result = next;
-		next = next.getNext();
-		
-		return result.getValue();
-	    }
+        public Type next() {
+            if (hasNext()) {
+                Node result = next;
+                next = next.getNext();
 
-	    else {
-		throw new NoSuchElementException();
-	    }
-	}
+                return result.getValue();
+            }
+
+            else {
+                throw new NoSuchElementException();
+            }
+        }
 	
     }
     
