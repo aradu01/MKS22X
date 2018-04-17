@@ -297,7 +297,7 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
             Node current = first;
             
             while (current != null) {
-                if (current.getValue().compareTo(get(index)) < 0) {
+                if (current.getValue().compareTo(get(index)) > 0) {
                     index = counter;
                 }
                 
@@ -320,7 +320,7 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
             Node current = first;
             
             while (current != null) {
-                if (current.getValue().compareTo(get(index)) > 0) {
+                if (current.getValue().compareTo(get(index)) < 0) {
                     index = counter;
                 }
                 
@@ -331,6 +331,58 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
             return index;
         }
     }
+    
+    public void extend(MyLinkedListImproved<Type> other) {
+        if (other.size() != 0) {
+            if (this.size() == 0) {
+                first = other.getNode(0);
+                last = other.getNode(other.size() - 1);
+                length = other.size();
+            }
+            
+            else {
+                last.setNext(other.getNode(0));
+                other.getNode(0).setPrev(last);
+                last = other.getNode(other.size() - 1);
+                length += other.size();
+            }
+            
+            other.clear();
+        }
+    }
+    
+    /* For Testing.
+    public static void main(String[] args) {
+        System.out.println("---------- Minimum and Maximum ----------");
+        
+        MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
+        
+        for (int i = 1; i < 11; i++) {
+            a.add(new Integer(i));
+        }
+        
+        System.out.println(a);
+        System.out.println("Minimum: " + a.get(a.min()));
+        System.out.println("Maximum: " + a.get(a.max()));
+        
+        System.out.println();
+        System.out.println("---------- Extend ----------");
+        
+        MyLinkedListImproved<Integer> b = new MyLinkedListImproved<>();
+        
+        for (int j = 51; j < 61; j++) {
+            b.add(new Integer(j));
+        }
+        
+        System.out.println("First: " + a);
+        System.out.println("Second: " + b);
+        
+        a.extend(b);
+        
+        System.out.println("First: " + a);
+        System.out.println("Second: " + b);
+    }
+    */
 
     // Below lies the private Node class.
 
