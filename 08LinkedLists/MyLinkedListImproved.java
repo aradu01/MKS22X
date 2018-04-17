@@ -381,6 +381,20 @@ public class MyLinkedListImproved<Type extends Comparable<Type>> implements Iter
         
         System.out.println("First: " + a);
         System.out.println("Second: " + b);
+        
+        System.out.println();
+        System.out.println("---------- Iterator ----------");
+        
+        MyLinkedListImproved<Integer> c = new MyLinkedListImproved<>();
+        
+        System.out.println("A: " + b);
+        System.out.println("C: " + c);
+        
+        for (Integer element: a) {
+            c.add(element);
+        }
+        
+        System.out.println("C: " + c);
     }
     */
 
