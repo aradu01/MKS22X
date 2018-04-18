@@ -74,11 +74,13 @@ public class Calculator {
 
 	return String.valueOf(result); 
     }
-	
+
+    /* For Testing.
     public static void main(String[] args) {
 	System.out.println(eval("10 2.0 +")); // Is 12.0
 	System.out.println(eval("11 3 - 4 + 2.5 *")); // Is 30.0
 	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -")); // Is 893.0
     }
+    */
 
 }
