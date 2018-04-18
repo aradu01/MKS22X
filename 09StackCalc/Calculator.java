@@ -10,7 +10,7 @@ public class Calculator {
 	for (int index = 0; index < expression.length(); index++) {
 	    if (expression.charAt(index) == ' ') {
 		items.add(number);
-		number = " ";
+		number = "";
 	    }
 
 	    else {		    
@@ -22,23 +22,63 @@ public class Calculator {
 	    }
 	}
 
+	// System.out.println(items);
+
 	for (int index = 0; index < items.size(); index++) {
+	    // System.out.println("HERE");
+	    
 	    if (items.get(index).equals("+") ||
 		items.get(index).equals("-") ||
 		items.get(index).equals("*") ||
 		items.get(index).equals("/") ||
 		items.get(index).equals("%")) {
-		items.set(index - 1,
-			  
-	System.out.println(items);
-	return 0.0;
+
+		// System.out.println("THERE");
+		
+		items.set(index, calculate(items.get(index - 2), items.get(index).charAt(0), items.get(index - 1)));
+		items.remove(index - 1);
+		items.remove(index - 2);
+
+		index -= 2;
+	    }
+	}
+	
+	// System.out.println(items);
+	return Double.parseDouble(items.get(0));
     }
 
-    private static double operator(String first, String operator, String second) {
+    private static String calculate(String first, char operator, String second) {
+	double result;
+	
+	// System.out.println(first + " " + operator + " " + second);
+	
+	if (operator == '+') {
+	    result = Double.parseDouble(first) + Double.parseDouble(second);
+	}
 
+	else if (operator == '-') {
+	    result = Double.parseDouble(first) - Double.parseDouble(second);
+	}
+
+	else if (operator == '*') {
+	    result = Double.parseDouble(first) * Double.parseDouble(second);
+	}
+
+	else if (operator == '/') {
+	    result = Double.parseDouble(first) / Double.parseDouble(second);
+	}
+
+	else {
+	    result = Double.parseDouble(first) % Double.parseDouble(second);
+	}
+
+	return String.valueOf(result); 
+    }
+	
     public static void main(String[] args) {
-	String sentence = "8 2 + 99 9 - * 2 + 9 -";
-	eval(sentence);
+	System.out.println(eval("10 2.0 +")); // Is 12.0
+	System.out.println(eval("11 3 - 4 + 2.5 *")); // Is 30.0
+	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -")); // Is 893.0
     }
 
 }
