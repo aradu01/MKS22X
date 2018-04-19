@@ -78,7 +78,7 @@ public class MyDeque<Type> {
 	*/
 	
 	if (first == null) {
-	    first += 1;
+	    first++;
 	}
 	
 	if (first == 0) {
@@ -95,7 +95,7 @@ public class MyDeque<Type> {
 		expand();
 	    }
 	    
-	    first -= 1;
+	    first--;
 	    data[first] = head;
 	}
 
@@ -108,13 +108,13 @@ public class MyDeque<Type> {
 	}
 	
 	if (last == null) {
-	    last -= 1;
+	    last--;
 	}
 	
 	if (last == length) {
 	    if (first == 0) {
 		expand();
-		length += 1;
+		length++;
 	    }
 	    
 	    else {
@@ -129,11 +129,30 @@ public class MyDeque<Type> {
 		expand();
 	    }
 	    
-	    last += 1;
+	    last++;
 	    data[last] = tail;
 	}
 
 	length++;
+    }
+	
+    public Type removeFirst() {
+	if (lengh == 0) {
+	    throw new NoSuchElementException();
+	}
+	
+	data[index] = null;
+	
+	/*
+	if (index == first) {
+	    if (first == length - 1) {
+	        first = 0;
+	    }
+	    
+	    else {
+		first++;
+	    }
+	*/
     }
     
     @SuppressWarnings("unchecked")
@@ -173,7 +192,7 @@ public class MyDeque<Type> {
 	System.out.println("---------- addFirst ----------");
 	
 	for (int element = 0; element < 10; element++) {
-	    data.addFirst(new Integer(element));
+	    a.addFirst(new Integer(element));
 	    System.out.println(a);
 	}
 	
@@ -181,7 +200,7 @@ public class MyDeque<Type> {
 	System.out.println("---------- addLast ----------");
 	
 	for (int element = 10; element < 20; element++) {
-	    data.addLast(new Integer(element));
+	    a.addLast(new Integer(element));
 	    System.out.println(a);
 	}
 	
@@ -192,14 +211,14 @@ public class MyDeque<Type> {
 	
 	for (int element = 0; element < 10; element ++) {
 	    if (element % 2 == 0) {
-		data.addFirst(new Integer(element));
+		b.addFirst(new Integer(element));
 	    }
 	
 	    else {
-		data.addLast(new Integer(element));
+		b.addLast(new Integer(element));
 	    }
 	    
-	    System.out.println(data);
+	    System.out.println(b);
 	}
     }
     
