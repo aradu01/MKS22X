@@ -10,17 +10,48 @@ public class MyDeque<Type> {
     @SuppressWarnings("unchecked")
     public MyDeque() {
         data = (Type[]) new Object[INITIAL_CAPACITY];
-	length = INITIAL_CAPACITY;
-	first = length / 2;
+	// first = -1;
+	first = INITIAL_CAPACITY / 2;
 	last = first;
     }
     
     @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity) {
+	if (initialCapacity < 0) {
+	    throw new IllegalArgumentException();
+	}
+	
 	data = (Type[]) new Object[initialCapacity];
-	length = initialCapacity;
-	first = length / 2;
+	// first = -1;
+	first = initialCapacity / 2;
 	last = first;
+    }
+
+    public String toString() {
+	String result = "[";
+	
+	if (first == last) {
+	    return result + "]";
+	}
+	
+	else if (first < last) {
+	    for (int index = first; index <= last; index++) {
+		result += data[index] + ", ";
+	    }
+	}
+	
+	else {
+	    for (int index = first; index < length; index++) {
+		result += data[index] + ", ";
+	    }
+	    
+	    for (int index = 0; index <= last; index++) {
+		result += data[index] + ", ";
+	    }
+	}
+	
+	result = result.substring(0, result.length() - 2) + "]";
+	return result;
     }
 
     public int size() {
@@ -30,6 +61,24 @@ public class MyDeque<Type> {
     public void addFirst(Type head) {
 	if (head == null) {
 	    throw new NullPointerException();
+	}
+	
+	/*
+	if (first == -1) {
+	    if (last == -1) {
+		first = length / 2;
+	    }
+	
+	    else {
+		if (last - length < 0) {
+		    first = length + (last - length)
+		}
+	    }
+	}
+	*/
+	
+	if (first == null) {
+	    first += 1;
 	}
 	
 	if (first == 0) {
@@ -58,12 +107,20 @@ public class MyDeque<Type> {
 	    throw new NullPointerException();
 	}
 	
+	if (last == null) {
+	    last -= 1;
+	}
+	
 	if (last == length) {
 	    if (first == 0) {
 		expand();
+		length += 1;
 	    }
-
-	    last += 1;
+	    
+	    else {
+	    	last = 0;
+	    }
+	    
 	    data[last] = tail;
 	}
 
@@ -109,9 +166,41 @@ public class MyDeque<Type> {
     }
 
     public static void main(String[] args) {
-	MyDeque a = new MyDeque();
-
+	MyDeque<Integer> a = new MyDeque<>();
 	System.out.println(a);
+	
+	System.out.println();
+	System.out.println("---------- addFirst ----------");
+	
+	for (int element = 0; element < 10; element++) {
+	    data.addFirst(new Integer(element));
+	    System.out.println(a);
+	}
+	
+	System.out.println();
+	System.out.println("---------- addLast ----------");
+	
+	for (int element = 10; element < 20; element++) {
+	    data.addLast(new Integer(element));
+	    System.out.println(a);
+	}
+	
+	MyDeque<Integer> b = new MyDeque<>();
+	
+	System.out.println();
+	System.out.println("---------- addFirst & addLast ----------");
+	
+	for (int element = 0; element < 10; element ++) {
+	    if (element % 2 == 0) {
+		data.addFirst(new Integer(element));
+	    }
+	
+	    else {
+		data.addLast(new Integer(element));
+	    }
+	    
+	    System.out.println(data);
+	}
     }
     
 }
