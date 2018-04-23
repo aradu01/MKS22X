@@ -249,6 +249,7 @@ public class MyDeque<Type> {
         }
     }
 
+    /*
     public static void main(String[] args) {
         MyDeque<Integer> a = new MyDeque<>();
         System.out.println(a);
@@ -318,5 +319,6 @@ public class MyDeque<Type> {
         System.out.println(b);
         System.out.println(b.getLast());
     }
+    */
     
 }
