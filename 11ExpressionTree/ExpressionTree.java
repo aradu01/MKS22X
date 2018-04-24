@@ -96,6 +96,7 @@ public class ExpressionTree{
 	this.value = value;
 	op = '~';
     }
+	
     public ExpressionTree(char op,ExpressionTree l, ExpressionTree r){
 	this.op = op;
 	left = l;
@@ -110,10 +111,12 @@ public class ExpressionTree{
     private double getValue(){
 	return value;
     }
+	
     /* accessor method for left, precondition is that isOp() is true.*/
     private ExpressionTree getLeft(){
 	return left;
     }
+	
     /* accessor method for right, precondition is that isOp() is true.*/
     private ExpressionTree getRight(){
 	return right;
@@ -122,6 +125,7 @@ public class ExpressionTree{
     private boolean isOp(){
 	return hasChildren();
     }
+	
     private boolean isValue(){
 	return !hasChildren();
     }
@@ -130,6 +134,7 @@ public class ExpressionTree{
 	return left != null && right != null;
     }
   
+    /* For Testing.
     public static void main(String[] args){
 	ExpressionTree a = new ExpressionTree(4.0);
 	ExpressionTree b = new ExpressionTree(2.0);
@@ -165,5 +170,6 @@ public class ExpressionTree{
 	System.out.println(ex.toStringPrefix());
 	System.out.println(ex.evaluate()); // 10.5   
     }
+    */
     
 }
