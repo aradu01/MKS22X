@@ -58,7 +58,50 @@ public class MyHeap<Type extends Comparable<Type>> {
     }
 
     public Type remove() {
-        return null;
+        if (size == 0) {
+            throw new IllegalStateException();
+        }
+        
+        else {
+            Type deletion = data[0];
+            int position = 0;
+            
+            int first = 2 * position + 1;
+            int second = 2 * position + 2;
+            
+            while (first < size || second < size) {
+                if (minORmax) {
+                    if (data[first].compareTo(data[second]) > 0) {
+                        swap(position, first);
+                        position = first;
+                    }
+                    
+                    else {
+                        swap(position, second);
+                        position = second;
+                    }
+                }
+                
+                else {
+                    if (data[first].compareTo(data[second]) < 0) {
+                        swap(position, first);
+                        position = first;
+                    }
+                    
+                    else {
+                        swap(position, second);
+                        position = second;
+                    }
+                }
+                
+                first = 2 * position + 1;
+                second = 2 * position + 2;
+            }
+            
+            data[position] = null;
+            size--;
+            return deletion;
+        }
     }
 
     public Type peek() {
@@ -100,6 +143,12 @@ public class MyHeap<Type extends Comparable<Type>> {
             a.add(new Integer(number));
         }
         
+        System.out.println(a);
+        
+        System.out.println();
+        System.out.println("----- remove -----");
+        
+        System.out.println(a.remove());
         System.out.println(a);
     }
     
