@@ -130,10 +130,11 @@ public class MyHeap<Type extends Comparable<Type>> {
         data[second] = storage;
     }
     
+    /* For Testing.
     public static void main(String[] args) {
         System.out.println("----- toString -----");
         
-        MyHeap<Integer> a = new MyHeap<>(true);
+        MyHeap<Integer> a = new MyHeap<>(false);
         System.out.println(a);
         
         System.out.println();
@@ -150,6 +151,25 @@ public class MyHeap<Type extends Comparable<Type>> {
         
         System.out.println(a.remove());
         System.out.println(a);
+        
+        System.out.println();
+        System.out.println("----- size & peek -----");
+        
+        MyHeap<String> b = new MyHeap<>();
+        
+        b.add("Durian");
+        b.add("Apple");
+        b.add("Banana");
+        b.add("Coconut");
+        b.add("Blackberry");
+        b.add("Blueberry");
+        b.add("Cranberry");
+        b.add("Dragonfruit");
+        
+        System.out.println(b);
+        System.out.println("Size: " + b.size());
+        System.out.println("Last Alphabetically: " + b.peek());
     }
+    */
     
 }
