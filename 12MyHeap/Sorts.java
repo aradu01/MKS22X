@@ -29,10 +29,23 @@ public class Sorts {
         
         return champion;
     }
+
+    private static int parent(int index) {
+	return (index - 1) / 2;
+    }
     
-    public static void heapsort(int[] data) {
+    private static int firstChild(int index) {
+	return 2 * index + 1;
+    }
+
+    private static int secondChild(int index) {
+	return 2 * index + 2;
+    }
+    
+    public static void heapify(int[] data) {
         swap(data, 0, findLargest(data));
-        
+
+	/*
         for (int index = 0; index < data.length; index++) {
             if ((index - 1) / 2 >= 0 && data[index] > data[(index - 1) / 2]) {
                 // print(data);
@@ -40,6 +53,24 @@ public class Sorts {
                 index = (index - 1) / 2;
             }
         }
+	*/
+
+	for (int index = data.length - 1; index >= 0; index--) {
+	    if (parent(index) >= 0 && data[index] > data[parent(index)]) {
+		swap(data, parent(index), index);
+	    }
+	}
+    }
+
+    public static void heapsort(int[] data) {
+	heapify(data);
+	int border = data.length;
+	
+	for (int index = 0; index < border; index++) {
+	    swap(data, index, data.length - 1);
+	    border--;
+
+	}
     }
     
     public static void main(String[] args) {
@@ -50,7 +81,7 @@ public class Sorts {
         }
         
         print(a);
-        heapsort(a);
+        heapify(a);
         print(a);
     }
 }
