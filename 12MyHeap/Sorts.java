@@ -44,8 +44,6 @@ public class Sorts {
     
     public static void heapify(int[] data) {
         swap(data, 0, findLargest(data));
-	border--;
-	int current;
 
 	/*
         for (int index = 0; index < data.length; index++) {
@@ -61,44 +59,46 @@ public class Sorts {
 	    if (parent(index) >= 0 && data[index] > data[parent(index)]) {
 		swap(data, parent(index), index);
 	    }
-		
-	    current = index;
-	    while (firstChild(current) < border && data[current] < data[firstChild(current)] || 
-		    secondChild(current) < border && data[current] < data[secondChild(current)]) {
-	        if (data[current] < firstChild(current) && data[current] < secondChild(current)) {
-	    	    if (data[firstChild(current)] > data[secondChild(current)]) {
-		        swap(data, current, firstChild(current));
-			current = firstChild(current);
-		    }
-
-		    else {
-			swap(data, current, secondChild(current));
-			current = secondChild(current);
-		    }
-		}
-
-		else if (data[current] < data[firstChild(current)]) {
-		    swap(data, current, firstChild(current));
-		    current = firstChild(current);
-		}
-
-		else if (data[current] < data[secondChild(current)]) {
-		    swap(data, current, secondChild(current));
-		    current = secondChild(current);
-		}
-	    }
 	}
     }
 
     public static void heapsort(int[] data) {
 	heapify(data);
 	int border = data.length;
+	int current;
 	
 	for (int index = 0; index < border; index++) {
+	    print(data);
 	    swap(data, index, data.length - 1);
 	    border--;
 
-	}
+     	    current = index;
+        
+     	    while (firstChild(current) < border && data[current] < data[firstChild(current)] || 
+                secondChild(current) < border && data[current] < data[secondChild(current)]) {
+	        if (data[current] < data[firstChild(current)] && data[current] < data[secondChild(current)]) {
+                    if (data[firstChild(current)] > data[secondChild(current)]) {
+                        swap(data, current, firstChild(current));
+                        current = firstChild(current);
+                    }
+                
+                    else {
+                        swap(data, current, secondChild(current));
+                        current = secondChild(current);
+                    }
+                }
+            
+                else if (data[current] < data[firstChild(current)]) {
+                    swap(data, current, firstChild(current));
+                    current = firstChild(current);
+                }
+            
+                else if (data[current] < data[secondChild(current)]) {
+                    swap(data, current, secondChild(current));
+                    current = secondChild(current);
+                }
+            }
+        }
     }
     
     public static void main(String[] args) {
