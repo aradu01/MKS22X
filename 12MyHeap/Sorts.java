@@ -64,6 +64,8 @@ public class Sorts {
 
     public static void heapsort(int[] data) {
 	heapify(data);
+	
+	/* First Attempt.
 	int border = data.length;
 	int current;
 	
@@ -99,17 +101,98 @@ public class Sorts {
                 }
             }
         }
+	*/
+	
+	/* Second Attempt.
+	int border = data.length;
+    	int current;
+    	
+    	for (int index = 0; index < border; index++) {
+    	    print(data);
+
+      	    current = index;
+            swap(data, current, border - 1);
+            
+     	    while (firstChild(current) < border || secondChild(current) < border) {
+     	        if (data[current] > data[firstChild(current)] && data[current] > data[secondChild(current)]) {
+     	            break;
+     	        }
+     	        
+                else if (data[firstChild(current)] > data[secondChild(current)]) {
+                    swap(data, current, firstChild(current));
+                    current = firstChild(current);
+                }
+                
+                else if (data[secondChild(current)] > data[firstChild(current)]) {
+                    swap(data, current, secondChild(current));
+                    current = secondChild(current);
+                }
+            }
+            
+            border--;
+        }
+	*/
+	    
+	/* Third Attempt.
+	int current;
+        int border = data.length;
+        
+        for (int index = 0; index < data.length; index++) {
+            current = index;
+            swap(data, current, border - 1);
+        	
+            while (firstChild(current) < border || secondChild(current) < border) {
+       	        if (data[current] < data[firstChild(current)] || data[current] < data[secondChild(current)]) {
+        	    if (data[firstChild(current)] > data[secondChild(current)]) {
+        	        swap(data, current, firstChild(current));
+        	        current = firstChild(current);
+        	    }
+        	        
+        	    else {
+        	        swap(data, current, secondChild(current));
+        	        current = secondChild(current);
+        	    }
+       		}
+            }
+        	
+       	    border--;
+        }
+	*/
+	
+        for (int border = data.length - 1; border > 0; border--) {
+            swap(data, 0, border);
+            sortHelper(data, 0, border - 1);
+        }
     }
     
+    private static void sortHelper(int[] data, int start, int end) {
+        int largest = start;
+        
+        for (int index = start; index <= end; index++) {
+            if (data[index] > data[largest]) {
+                largest = index;
+            }
+        }
+        
+        for (int index = end; index >= start; index--) {
+            if (parent(index) >= 0 && data[index] > data[parent(index)]) {
+                swap(data, parent(index), index);
+            }
+        }
+    }
+    
+    /* For Testing.
     public static void main(String[] args) {
-        int[] a = new int[10];
+        int[] a = new int[1000];
         
         for (int index = 0; index < a.length; index++) {
-            a[index] = (int) (Math.random() * 100);
+            a[index] = (int) (Math.random() * 10000);
         }
         
         print(a);
-        heapify(a);
+        heapsort(a);
         print(a);
     }
+    */
+	
 }
