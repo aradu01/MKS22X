@@ -4,18 +4,31 @@ public class MazeSolver {
     private Frontier frontier;
 
     public MazeSolver(String mazeText) {
-    
+	maze = new Maze(mazeText);
     }
 
-    //Default to BFS
+    // Breath First Search Default.
     public boolean solve() {
 	return solve(0);
     }
 
-    //mode: required to allow for alternate solve modes.
-    //0: BFS
-    //1: DFS
+    // 0: Breath First Search.
+    // 1: Depth First Search.
     public boolean solve(int mode) {
+	if (mode == 0) {
+	    frontier = new FrontierQueue();
+
+	    while (frontier.hasNext()) {
+		
+	}
+
+	else if (mode == 1) {
+	    frontier = new FrontierStack();
+	}
+
+	else {
+	    throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
+	}
 	//initialize your frontier
 	//while there is stuff in the frontier:
 	//  get the next location

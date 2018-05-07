@@ -10,7 +10,7 @@ public class FrontierQueue implements Frontier {
     }
 
     public Location next() {
-	return frontier.removeFirst();
+	return frontier.remove();
     }
 
     public void add(Location addition) {
