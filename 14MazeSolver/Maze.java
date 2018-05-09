@@ -13,7 +13,41 @@ public class Maze {
     private char[][] maze;
 
     public Location[] getNeighbors(Location current) {
+	Location[] answer = current.neighbors();
 	
+	for (int index = 0; index < answer.length; index++) {	    
+	    if (answer[index].xcor() < 0 || answer[index].xcor() > maze[0].length) {
+		answer[index] = null;
+	    }
+	    
+	    if (answer[index].ycor() < 0 || answer[index].ycor() > maze.length) {
+		answer[index] = null;
+	    }
+	    
+	    if (maze[answer[index].xcor()][answer[index].ycor()] != ' ') {
+		answer[index] = null;
+	    }
+	}
+	
+	int counter = 0;
+	
+	for (Location element: answer) {
+	    if (element == null) {
+		counter++;
+	    }
+	}
+	
+	Location[] result = new Location[4 - counter];
+	
+	int index = 0;
+	for (Location element: answer) {
+	    if (element != null) {
+		result[index] = element;
+		index++;
+	    }
+	}
+	
+	return result;
     }
 
     public Location getStart() {
