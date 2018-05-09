@@ -9,7 +9,22 @@ public class FrontierQueue implements Frontier {
 	frontier = new LinkedList<Location>();
     }
 
+    /* For Testing.
+    public String toString() {
+	Location current = frontier.getFirst();
+	String result = "";
+
+	while (current != null) {
+	    result += current + ", ";
+	    current = current.next();
+	}
+
+	return result;
+    }
+    */
+
     public Location next() {
+	size--;
 	return frontier.removeFirst();
     }
 

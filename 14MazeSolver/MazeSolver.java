@@ -17,6 +17,7 @@ public class MazeSolver {
     public boolean solve(int mode) {
 	if (mode == 0) {
 	    frontier = new FrontierQueue();
+	    System.out.println(frontier);
 	}
 	    
 	else if (mode == 1) {
@@ -29,26 +30,24 @@ public class MazeSolver {
 	    
 	Location place = maze.getStart();
 	Location[] neighbors =  maze.getNeighbors(place);
-	    
-	for (Location place: neighbors) {
-	    frontier.add(place);
-	}
+
+	frontier.add(place);
 	    
 	while (frontier.hasNext()) {
-	    if (maze[place.xcor()][place.ycor()] == 'E') {
+	    for (Location area: neighbors) {
+		frontier.add(area);
+	    }
+	    
+	    if (maze.get(place.xcor(), place.ycor()) == 'E') {
 		return true;
 	    }
 	
-	    else if (maze[place.xcor()][place.ycor()] == ' ') {
-		maze[place.xcor()][place.ycor()] = '.';
+	    else if (maze.get(place.xcor(), place.ycor()) == ' ') {
+		maze.set(place.xcor(), place.ycor(), '.');
 	    }
 		
 	    place = frontier.next();
 	    neighbors = maze.getNeighbors(place);
-		
-	    for (Location surroundings: neighbors) {
-		frontier.add(surroundings);
-	    }
 	}
 	    
 	return false;
@@ -56,6 +55,13 @@ public class MazeSolver {
 
     public String toString() {
 	return maze.toString();
+    }
+
+    public static void main(String[] args) {
+	MazeSolver a = new MazeSolver("data1.dat");
+
+	System.out.println(a.solve());
+	System.out.println(a);
     }
 
 }

@@ -24,7 +24,7 @@ public class Maze {
 		answer[index] = null;
 	    }
 	    
-	    if (maze[answer[index].xcor()][answer[index].ycor()] != ' ') {
+	    if (maze[answer[index].xcor()][answer[index].ycor()] != ' ' || maze[answer[index].xcor()][answer[index].ycor()] != 'E') {
 		answer[index] = null;
 	    }
 	}
@@ -58,7 +58,7 @@ public class Maze {
 	return end;
     }
 
-    private static String go(int x,int y) {
+    private static String go(int x, int y) {
 	return ("\033[" + x + ";" + y + "H");
     }
     
@@ -91,10 +91,10 @@ public class Maze {
 	maze = new char[lines.size()][];
     
 	for (int i = 0; i < maze.length; i++) {
-	    maze[i]=lines.get(i);
+	    maze[i] = lines.get(i);
 	}
     
-	for (int r=0; r<maze.length;r++) {
+	for (int r = 0; r < maze.length;r++) {
 	    for (int c = 0; c < maze[r].length; c++) {
 		if (maze[r][c] == 'S') {
 		    if (startr == -1) {
@@ -108,9 +108,9 @@ public class Maze {
 		    }
 		}
 
-		if (maze[r][c]== 'E') {
+		if (maze[r][c] == 'E') {
 		    //erase E
-		    //maze[r][c]=' ';
+		    //maze[r][c] = ' ';
 		    if(endr == -1){
 			endr = r;
 			endc = c;
@@ -214,7 +214,7 @@ public class Maze {
 		}
 	    }
       
-	    ans += line+color(37,40) + "\n";
+	    ans += line + color(37,40) + "\n";
 	}
     
 	return ans;

@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 
-public class FrontierQueue implements Frontier {
+public class FrontierStack implements Frontier {
 
     private LinkedList<Location> frontier;
     private int size;
 
-    public FrontierQueue() {
+    public FrontierStack() {
 	frontier = new LinkedList<Location>();
     }
 
