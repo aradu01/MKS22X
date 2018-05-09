@@ -17,11 +17,8 @@ public class MazeSolver {
     public boolean solve(int mode) {
 	if (mode == 0) {
 	    frontier = new FrontierQueue();
-
-	    while (frontier.hasNext()) {
-		
 	}
-
+	    
 	else if (mode == 1) {
 	    frontier = new FrontierStack();
 	}
@@ -29,13 +26,31 @@ public class MazeSolver {
 	else {
 	    throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
 	}
-	//initialize your frontier
-	//while there is stuff in the frontier:
-	//  get the next location
-	//  process the location to find the locations (use the maze to do this)
-	//  check if any locations are the end, if you found the end just return true!
-	//  add all the locations to the frontier
-	//when there are no more values in the frontier return false
+	    
+	Location place = maze.getStart();
+	Location[] neighbors =  maze.getNeighbors(place);
+	    
+	for (Location place: neighbors) {
+	    frontier.add(place);
+	}
+	    
+	while (frontier.hasNext()) {
+	    if (maze[place.xcor()][place.ycor()] == 'E') {
+		return true;
+	    }
+	
+	    else if (maze[place.xcor()][place.ycor()] == ' ') {
+		maze[place.xcor()][place.ycor()] = '.';
+	    }
+		
+	    place = frontier.next();
+	    neighbors = maze.getNeighbors(place);
+		
+	    for (Location surroundings: neighbors) {
+		frontier.add(surroundings);
+	    }
+	}
+	    
 	return false;
     }
 
