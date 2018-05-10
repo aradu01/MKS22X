@@ -10,6 +10,7 @@ public class FrontierStack implements Frontier {
     }
 
     public Location next() {
+	size--;
 	return frontier.remove();
     }
 

@@ -11,6 +11,10 @@ public class Location {
 	previous = prev;
     }
 
+    public String toString() {
+	return "(" + x + ", " + y + ")";
+    }
+
     public int xcor() {
 	return x;
     }

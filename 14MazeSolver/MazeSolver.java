@@ -7,6 +7,16 @@ public class MazeSolver {
 	maze = new Maze(mazeText);
     }
 
+    private static void print(Object[] data) {
+        String result = "";
+        
+        for (Object element: data) {
+            result += element + " ";
+        }
+        
+        System.out.println(result);
+    }
+
     // Breath First Search Default.
     public boolean solve() {
 	return solve(0);
@@ -28,26 +38,32 @@ public class MazeSolver {
 	    throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
 	}
 	    
-	Location place = maze.getStart();
-	Location[] neighbors =  maze.getNeighbors(place);
+	Location place;
+	Location[] neighbors;
 
-	frontier.add(place);
+	frontier.add(maze.getStart());
+	System.out.println(frontier);
 	    
 	while (frontier.hasNext()) {
-	    for (Location area: neighbors) {
-		frontier.add(area);
-	    }
+	    place = frontier.next();
+	    neighbors = maze.getNeighbors(place);
+	    System.out.println(place);
+	    System.out.println("Neighbors:");
+	    print(neighbors);
 	    
 	    if (maze.get(place.xcor(), place.ycor()) == 'E') {
 		return true;
 	    }
 	
-	    else if (maze.get(place.xcor(), place.ycor()) == ' ') {
+	    if (maze.get(place.xcor(), place.ycor()) == ' ') {
 		maze.set(place.xcor(), place.ycor(), '.');
 	    }
-		
-	    place = frontier.next();
-	    neighbors = maze.getNeighbors(place);
+
+	    for (Location area: neighbors) {
+		frontier.add(area);
+	    }
+
+	    System.out.println(maze.toStringColor(20));
 	}
 	    
 	return false;
@@ -59,9 +75,7 @@ public class MazeSolver {
 
     public static void main(String[] args) {
 	MazeSolver a = new MazeSolver("data1.dat");
-
-	System.out.println(a.solve());
-	System.out.println(a);
+	a.solve();
     }
 
 }

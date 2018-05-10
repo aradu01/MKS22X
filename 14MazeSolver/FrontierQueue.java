@@ -9,19 +9,17 @@ public class FrontierQueue implements Frontier {
 	frontier = new LinkedList<Location>();
     }
 
-    /* For Testing.
     public String toString() {
-	Location current = frontier.getFirst();
+	Object[] array = frontier.toArray();
+	
 	String result = "";
 
-	while (current != null) {
-	    result += current + ", ";
-	    current = current.next();
+        for (Object place: array) {
+	    result += place + "; ";
 	}
 
 	return result;
     }
-    */
 
     public Location next() {
 	size--;
