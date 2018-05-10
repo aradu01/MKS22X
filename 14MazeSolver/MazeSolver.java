@@ -47,9 +47,12 @@ public class MazeSolver {
 	while (frontier.hasNext()) {
 	    place = frontier.next();
 	    neighbors = maze.getNeighbors(place);
+
 	    System.out.println(place);
 	    System.out.println("Neighbors:");
 	    print(neighbors);
+	    System.out.println(frontier);
+	    
 	    
 	    if (maze.get(place.xcor(), place.ycor()) == 'E') {
 		return true;
@@ -75,7 +78,10 @@ public class MazeSolver {
 
     public static void main(String[] args) {
 	MazeSolver a = new MazeSolver("data1.dat");
-	a.solve();
+	System.out.println(a.solve(0));
+
+	MazeSolver b = new MazeSolver("data2.dat");
+	System.out.println(b.solve(0));
     }
 
 }

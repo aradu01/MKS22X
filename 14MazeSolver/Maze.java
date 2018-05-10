@@ -12,32 +12,74 @@ public class Maze {
     private Location end;
     private char[][] maze;
 
+    private static void print(Object[] data) {
+        String result = "";
+        
+        for (Object element: data) {
+            result += element + " ";
+        }
+        
+        System.out.println(result);
+    }
+    
     public Location[] getNeighbors(Location current) {
-	Location[] answer = current.neighbors();
-	
-	for (int index = 0; index < answer.length; index++) {	    
-	    if (answer[index].xcor() < 0 || answer[index].xcor() > maze[0].length) {
-		answer[index] = null;
+	Location[] answer = new Location[4];
+	// print(answer);
+
+        if (current.xcor() + 1 > 0 && current.xcor() + 1 < maze.length && current.ycor() > 0 && current.ycor() < maze[0].length) {
+	    if (maze[current.xcor() + 1][current.ycor()] == ' ' || maze[current.xcor() + 1][current.ycor()] == 'E') {
+		answer[0] = new Location(current.xcor() + 1, current.ycor(), current);
 	    }
-	    
-	    if (answer[index].ycor() < 0 || answer[index].ycor() > maze.length) {
-		answer[index] = null;
-	    }
-	    
-	    if (maze[answer[index].xcor()][answer[index].ycor()] != ' ' || maze[answer[index].xcor()][answer[index].ycor()] != 'E') {
-		answer[index] = null;
+	}
+
+	if (current.xcor() - 1 > 0 && current.xcor() - 1 < maze.length && current.ycor() > 0 && current.ycor() < maze[0].length) {
+	    if (maze[current.xcor() - 1][current.ycor()] == ' ' || maze[current.xcor() + 1][current.ycor()] == 'E') {
+		answer[1] = new Location(current.xcor() - 1, current.ycor(), current);
 	    }
 	}
 	
+	if (current.xcor() > 0 && current.xcor() < maze.length && current.ycor() + 1 > 0 && current.ycor() + 1 < maze[0].length) {
+	    if (maze[current.xcor()][current.ycor() + 1] == ' ' || maze[current.xcor()][current.ycor() + 1] == 'E') {
+		answer[2] = new Location(current.xcor(), current.ycor() + 1, current);
+	    }
+	}
+	
+	if (current.xcor() > 0 && current.xcor() < maze.length && current.ycor() - 1 > 0 && current.ycor() - 1 < maze[0].length) {
+	    if (maze[current.xcor()][current.ycor() - 1] == ' ' || maze[current.xcor()][current.ycor() - 1] == 'E') {
+		answer[3] = new Location(current.xcor(), current.ycor() - 1, current);
+	    }
+	}
+
+	/*
+	for (int index = 0; index < answer.length; index++) {	    
+	    if (answer[index].xcor() < 0 || answer[index].xcor() > maze.length) {
+		// System.out.println(maze.length);
+		answer[index] = null;
+	    }
+	    
+	    if (answer[index].ycor() < 0 || answer[index].ycor() > maze[0].length) {
+		// System.out.println(maze.length);
+		answer[index] = null;
+	    }
+	    
+	    if (maze[answer[index].xcor()][answer[index].ycor()] != ' ' && maze[answer[index].xcor()][answer[index].ycor()] != 'E') {
+		// System.out.println(maze[answer[index].xcor()][answer[index].ycor()]);
+		answer[index] = null;
+	    }
+	}
+
+	print(answer);
+	*/
+
 	int counter = 0;
 	
 	for (Location element: answer) {
-	    if (element == null) {
+	    if (element != null) {
 		counter++;
 	    }
 	}
 	
-	Location[] result = new Location[4 - counter];
+	Location[] result = new Location[counter];
 	
 	int index = 0;
 	for (Location element: answer) {

@@ -9,6 +9,18 @@ public class FrontierStack implements Frontier {
 	frontier = new LinkedList<Location>();
     }
 
+    public String toString() {
+	Object[] array = frontier.toArray();
+	
+	String result = "";
+
+        for (Object place: array) {
+	    result += place + "; ";
+	}
+
+	return result;
+    }
+
     public Location next() {
 	size--;
 	return frontier.remove();

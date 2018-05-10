@@ -26,7 +26,8 @@ public class Location {
     public Location getLast() {
 	return previous;
     }
-    
+
+    /* First Attempt.
     public Location[] neighbors() {
 	Location[] result = new Location[4];
 	
@@ -37,5 +38,6 @@ public class Location {
 	
 	return result;
     }
+    */
 	
 }
