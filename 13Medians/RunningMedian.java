@@ -1,5 +1,68 @@
 public class RunningMedian {
     
+    private MyHeap<Double> maxHeap;
+    private MyHeap<Double> minHeap;
+    
+    public RunningMedian() {
+        maxHeap = new MyHeap<double>(true);
+        minHeap = new MyHeap<double>(false);
+    }
+    
+    public void add(Double addition) {
+        if (maxHeap.size() > minHeap.size()) {
+            minHeap.add(addition);
+        }
+        
+        else {
+            maxHeap.add(addition);
+        }
+        
+        while (maxHeap.size() - minHeap.size() > 1) {
+            // System.out.println("HERE ADD.");
+            
+            minHeap.add(maxHeap.remove());
+        }
+        
+        while (minHeap.size() - maxHeap.size() > 1) {
+            // System.out.println("THERE ADD.");
+            
+            maxHeap.add(minHeap.remove());
+        }
+    }
+    
+    public Double getMedian() {
+        if (maxHeap.size() == 0 && minHeap.size() == 0) {
+            throw new IllegalStateException("You need to add values.");
+        }
+        
+        else if (maxHeap.size() == 1 && minHeap.size() == 0) {
+            return maxHeap.peek();
+        }
+        
+        else if (minHeap.size() == 1 && maxHeap.size() == 0) {
+            // System.out.println("HERE GETMEDIAN.");
+            
+            return minHeap.peek();
+        }
+        
+        else {
+            if (maxHeap.size() == minHeap.size()) {
+                return (maxHeap.peek() + minHeap.peek()) / 2;
+            }
+            
+            else if (maxHeap.size() > minHeap.size()) {
+                // System.out.println("THERE GETMEDIAN.");
+                
+                return maxHeap.peek();
+            }
+            
+            else {
+                return minHeap.peek();
+            }
+        }
+    }
+    
+    /* Slower Version.
     private double[] data;
     private int size;
     
@@ -143,6 +206,7 @@ public class RunningMedian {
     public int size() {
         return size;
     }
+    */
     
   	/* For Testing.
     public static void main(String[] args) {
