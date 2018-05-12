@@ -1,3 +1,38 @@
+import java.util.ArrayList;
+
+public class FrontierStack implements Frontier {
+
+    private ArrayList<Location> frontier;
+
+    public FrontierStack() {
+    	frontier = new ArrayList<Location>();
+    }
+
+    public String toString() {
+    	String result = "";
+    
+        for (Location place: frontier) {
+    	    result += place + "; ";
+    	}
+    
+    	return result;
+    }
+
+    public Location next() {
+    	return frontier.remove();
+    }
+
+    public void add(Location addition) {
+    	frontier.add(addition);
+    }
+
+    public boolean hasNext() {
+    	return frontier.size() > 0;
+    }
+    
+}
+
+/* Previous Version.
 import java.util.LinkedList;
 
 public class FrontierStack implements Frontier {
@@ -36,3 +71,4 @@ public class FrontierStack implements Frontier {
     }
     
 }
+*/
