@@ -19,6 +19,23 @@ public class RunningMedians {
     }
     
     public void add(Double addition) {
+	if (maxHeap.size() == 0) {
+	    maxHeap.add(addition);
+	}
+
+	else if (minHeap.size() == 0) {
+	    minHeap.add(addition);
+	}
+
+	else if (addition < minHeap.peek()) {
+	    maxHeap.add(addition);
+	}
+
+	else if (addition > maxHeap.peek()) {
+	    minHeap.add(addition);
+	}
+
+	/*
         if (maxHeap.size() > minHeap.size()) {
             minHeap.add(addition);
         }
@@ -26,20 +43,18 @@ public class RunningMedians {
         else {
             maxHeap.add(addition);
         }
+	*/
 
-	if (maxHeap.size() > 0 && minHeap.size() > 0) {
-	    while (minHeap.peek() < maxHeap.peek()) {
-		// System.out.println("HERE ADD.");
+	while (maxHeap.size() - minHeap.size() > 1) {
+	    // System.out.println("HERE ADD.");
             
-		maxHeap.add(minHeap.remove());
-		minHeap.add(maxHeap.remove());
-	    }
-        
-	    while (minHeap.size() - maxHeap.size() > 1) {
-		// System.out.println("THERE ADD.");
+	    minHeap.add(maxHeap.remove());
+	}
+	
+	while (minHeap.size() - maxHeap.size() > 1) {
+	    // System.out.println("THERE ADD.");
             
-		maxHeap.add(minHeap.remove());
-	    }
+	    maxHeap.add(minHeap.remove());
 	}
     }
     
