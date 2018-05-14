@@ -1,11 +1,21 @@
-public class RunningMedian {
+public class RunningMedians {
     
     private MyHeap<Double> maxHeap;
     private MyHeap<Double> minHeap;
     
-    public RunningMedian() {
-        maxHeap = new MyHeap<double>(true);
-        minHeap = new MyHeap<double>(false);
+    public RunningMedians() {
+        maxHeap = new MyHeap<Double>(true);
+        minHeap = new MyHeap<Double>(false);
+    }
+
+    public String toString() {
+	String result = "Max Heap: ";
+
+	result += maxHeap.toString() + "\n";
+	result += "Min Heap: ";
+	result += minHeap.toString();
+
+	return result;
     }
     
     public void add(Double addition) {
@@ -16,21 +26,24 @@ public class RunningMedian {
         else {
             maxHeap.add(addition);
         }
-        
-        while (maxHeap.size() - minHeap.size() > 1) {
-            // System.out.println("HERE ADD.");
+
+	if (maxHeap.size() > 0 && minHeap.size() > 0) {
+	    while (minHeap.peek() < maxHeap.peek()) {
+		// System.out.println("HERE ADD.");
             
-            minHeap.add(maxHeap.remove());
-        }
+		maxHeap.add(minHeap.remove());
+		minHeap.add(maxHeap.remove());
+	    }
         
-        while (minHeap.size() - maxHeap.size() > 1) {
-            // System.out.println("THERE ADD.");
+	    while (minHeap.size() - maxHeap.size() > 1) {
+		// System.out.println("THERE ADD.");
             
-            maxHeap.add(minHeap.remove());
-        }
+		maxHeap.add(minHeap.remove());
+	    }
+	}
     }
     
-    public Double getMedian() {
+    public double getMedian() {
         if (maxHeap.size() == 0 && minHeap.size() == 0) {
             throw new IllegalStateException("You need to add values.");
         }
@@ -61,6 +74,10 @@ public class RunningMedian {
             }
         }
     }
+
+    public int size() {
+	return maxHeap.size() + minHeap.size();
+    }
     
     /* Slower Version.
     private double[] data;
@@ -68,7 +85,7 @@ public class RunningMedian {
     
     private static final int CAPACITY = 10;
     
-    public RunningMedian() {
+    public RunningMedians() {
         data = new double[CAPACITY];
     }
     
@@ -208,11 +225,10 @@ public class RunningMedian {
     }
     */
     
-  	/* For Testing.
     public static void main(String[] args) {
-        RunningMedian a = new RunningMedian();
-        RunningMedian b = new RunningMedian();
-      	RunningMedian c = new RunningMedian();
+        RunningMedians a = new RunningMedians();
+        RunningMedians b = new RunningMedians();
+      	RunningMedians c = new RunningMedians();
         
         System.out.println("----- add & size -----");
       
@@ -250,6 +266,5 @@ public class RunningMedian {
       	System.out.println(c);
       	System.out.println("Median: " + c.getMedian());
     }
-    */
     
 }
