@@ -43,7 +43,7 @@ public class RunningMedian {
             minHeap.add(addition);
         }
 
-        /*
+        /* Previous Attempt.
         if (maxHeap.size() > minHeap.size()) {
             minHeap.add(addition);
         }
@@ -53,7 +53,7 @@ public class RunningMedian {
         }
         */
 
-        /*
+        /* Previous Attempt.
         while (maxHeap.size() - minHeap.size() > 1) {
             // System.out.println("HERE ADD.");
 
@@ -260,6 +260,7 @@ public class RunningMedian {
     }
     */
     
+    /* For Testing.
     public static void main(String[] args) {
         RunningMedian a = new RunningMedian();
         RunningMedian b = new RunningMedian();
@@ -301,5 +302,6 @@ public class RunningMedian {
       	System.out.println(c);
       	System.out.println("Median: " + c.getMedian());
     }
+    */
     
 }
