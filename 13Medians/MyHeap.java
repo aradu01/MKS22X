@@ -75,7 +75,7 @@ public class MyHeap<Type extends Comparable<Type>> {
             
             while (first < size || second < size) {
                 if (minORmax) {
-                    System.out.println("First: " + first + " Second: " + second);
+                    // System.out.println("First: " + first + " Second: " + second);
                     
                     if (first < size && second < size) {
                         if (data[first].compareTo(data[second]) > 0) {
