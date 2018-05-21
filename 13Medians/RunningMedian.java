@@ -38,11 +38,11 @@ public class RunningMedian {
         else if (addition < minHeap.peek()) {
             maxHeap.add(addition);
         }
-        /*
+        
         else if (addition > maxHeap.peek()) {
             minHeap.add(addition);
         }
-        */
+
         /*
         if (maxHeap.size() > minHeap.size()) {
             minHeap.add(addition);
@@ -69,11 +69,11 @@ public class RunningMedian {
 
         while (Math.abs(maxHeap.size() - minHeap.size()) > 1) {
             if (maxHeap.size() > minHeap.size()) {
-            minHeap.add(maxHeap.remove());
+                minHeap.add(maxHeap.remove());
             }
 
             else {
-            maxHeap.add(minHeap.remove());
+                maxHeap.add(minHeap.remove());
             }
         }
     }

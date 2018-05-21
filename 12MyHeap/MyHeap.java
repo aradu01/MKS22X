@@ -118,7 +118,7 @@ public class MyHeap<Type extends Comparable<Type>> {
                 second = 2 * position + 2;
             }
             
-            while (position < size) {
+            while (position < size - 1) {
                 swap(position, position + 1);
                 position++;
             }
