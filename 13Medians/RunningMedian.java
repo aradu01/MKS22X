@@ -9,33 +9,41 @@ public class RunningMedian {
     }
 
     public String toString() {
-	String result = "Max Heap: ";
+        String result = "Max Heap: ";
 
-	result += maxHeap.toString() + "\n";
-	result += "Min Heap: ";
-	result += minHeap.toString();
+        result += maxHeap.toString() + "\n";
+        result += "Min Heap: ";
+        result += minHeap.toString();
 
-	return result;
+        return result;
     }
     
     public void add(Double addition) {
-	if (maxHeap.size() == 0 && minHeap.size() == 0) {
-	    maxHeap.add(addition);
-	}
+        if (maxHeap.size() == 0 && minHeap.size() == 0) {
+            maxHeap.add(addition);
+        }
 
-	else if (maxHeap.size() == 1 && minHeap.size() == 0) {
-	    // minHeap.add(addition);
-	}
-
-	else if (addition < minHeap.peek()) {
-	    maxHeap.add(addition);
-	}
-
-	else if (addition > maxHeap.peek()) {
-	    minHeap.add(addition);
-	}
-
-	/*
+        else if (maxHeap.size() == 1 && minHeap.size() == 0) {
+            if (addition < maxHeap.peek()) {
+                minHeap.add(maxHeap.remove());
+                
+                maxHeap.add(addition);
+            }
+            
+            else {
+                minHeap.add(addition);
+            }
+        }
+        
+        else if (addition < minHeap.peek()) {
+            maxHeap.add(addition);
+        }
+        /*
+        else if (addition > maxHeap.peek()) {
+            minHeap.add(addition);
+        }
+        */
+        /*
         if (maxHeap.size() > minHeap.size()) {
             minHeap.add(addition);
         }
@@ -43,31 +51,31 @@ public class RunningMedian {
         else {
             maxHeap.add(addition);
         }
-	*/
+        */
 
-	/*
-	while (maxHeap.size() - minHeap.size() > 1) {
-	    // System.out.println("HERE ADD.");
-            
-	    minHeap.add(maxHeap.remove());
-	}
-	
-	while (minHeap.size() - maxHeap.size() > 1) {
-	    // System.out.println("THERE ADD.");
-            
-	    maxHeap.add(minHeap.remove());
-	}
-	*/
+        /*
+        while (maxHeap.size() - minHeap.size() > 1) {
+            // System.out.println("HERE ADD.");
 
-	while (Math.abs(maxHeap.size() - minHeap.size()) > 1) {
-	    if (maxHeap.size() > minHeap.size()) {
-		minHeap.add(maxHeap.remove());
-	    }
+            minHeap.add(maxHeap.remove());
+        }
 
-	    else {
-		maxHeap.add(minHeap.remove());
-	    }
-	}
+        while (minHeap.size() - maxHeap.size() > 1) {
+            // System.out.println("THERE ADD.");
+
+            maxHeap.add(minHeap.remove());
+        }
+        */
+
+        while (Math.abs(maxHeap.size() - minHeap.size()) > 1) {
+            if (maxHeap.size() > minHeap.size()) {
+            minHeap.add(maxHeap.remove());
+            }
+
+            else {
+            maxHeap.add(minHeap.remove());
+            }
+        }
     }
     
     public double getMedian() {
@@ -103,7 +111,7 @@ public class RunningMedian {
     }
 
     public int size() {
-	return maxHeap.size() + minHeap.size();
+        return maxHeap.size() + minHeap.size();
     }
     
     /* Slower Version.

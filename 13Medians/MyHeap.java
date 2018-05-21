@@ -41,18 +41,22 @@ public class MyHeap<Type extends Comparable<Type>> {
         
         data[size] = addition;
         size++;
+        
+        int parent = (position - 1) / 2;
 
         if (minORmax) {
-            while ((position - 1) / 2 >= 0 && data[position].compareTo(data[(position - 1) / 2]) > 0) {
-                swap((position - 1) / 2, position);
-                position = (position - 1) / 2;
+            while (parent >= 0 && data[position].compareTo(data[parent]) > 0) {
+                swap(parent, position);
+                position = parent;
+                parent = (position - 1) / 2;
             }
         }
         
         else {
-            while ((position - 1) / 2 >= 0 && data[position].compareTo(data[(position - 1) / 2]) < 0) {
-                swap((position - 1) / 2, position);
-                position = (position - 1) / 2;
+            while (parent >= 0 && data[position].compareTo(data[parent]) < 0) {
+                swap(parent, position);
+                position = parent;
+                parent = (position - 1) / 2;
             }
         }
     }
@@ -71,31 +75,52 @@ public class MyHeap<Type extends Comparable<Type>> {
             
             while (first < size || second < size) {
                 if (minORmax) {
-                    if (data[first].compareTo(data[second]) > 0) {
-                        swap(position, first);
-                        position = first;
+                    System.out.println("First: " + first + " Second: " + second);
+                    
+                    if (first < size && second < size) {
+                        if (data[first].compareTo(data[second]) > 0) {
+                            swap(position, first);
+                            position = first;
+                        }
+
+                        else {
+                            swap(position, second);
+                            position = second;
+                        }
                     }
                     
                     else {
-                        swap(position, second);
-                        position = second;
+                        swap(position, first);
+                        position = first;
                     }
                 }
                 
                 else {
-                    if (data[first].compareTo(data[second]) < 0) {
-                        swap(position, first);
-                        position = first;
+                    if (first < size && second < size) {
+                        if (data[first].compareTo(data[second]) < 0) {
+                            swap(position, first);
+                            position = first;
+                        }
+
+                        else {
+                            swap(position, second);
+                            position = second;
+                        }
                     }
                     
                     else {
-                        swap(position, second);
-                        position = second;
+                        swap(position, first);
+                        position = first;
                     }
                 }
                 
                 first = 2 * position + 1;
                 second = 2 * position + 2;
+            }
+            
+            while (position < size) {
+                swap(position, position + 1);
+                position++;
             }
             
             data[position] = null;
@@ -129,5 +154,52 @@ public class MyHeap<Type extends Comparable<Type>> {
         data[first] = data[second];
         data[second] = storage;
     }
+    
+    /* For Testing.
+    public static void main(String[] args) {
+        System.out.println("----- toString -----");
+        
+        MyHeap<Integer> a = new MyHeap<>(false);
+        System.out.println(a);
+        
+        System.out.println();
+        System.out.println("----- add -----");
+        
+        for (int number = 0; number < 15; number++) {
+            a.add(new Integer(number));
+        }
+        
+        System.out.println(a);
+        
+        System.out.println();
+        System.out.println("----- remove -----");
+        
+        System.out.println(a.remove());
+        System.out.println(a);
+        
+        System.out.println();
+        System.out.println("----- size & peek -----");
+        
+        MyHeap<String> b = new MyHeap<>();
+        
+        b.add("Durian");
+        b.add("Apple");
+        b.add("Banana");
+        b.add("Coconut");
+        b.add("Blackberry");
+        b.add("Blueberry");
+        b.add("Cranberry");
+        b.add("Dragonfruit");
+        
+        System.out.println(b);
+        System.out.println("Size: " + b.size());
+        System.out.println("Last Alphabetically: " + b.peek());
+        
+        b.remove();
+        System.out.println(b);
+        System.out.println("Size: " + b.size());
+        System.out.println("Second to Last Alphabetically: " + b.peek());
+    }
+    */
     
 }
