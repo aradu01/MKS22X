@@ -19,7 +19,7 @@ public class FrontierStack implements Frontier {
     }
 
     public Location next() {
-    	return frontier.remove();
+    	return frontier.remove(frontier.size() - 1);
     }
 
     public void add(Location addition) {
@@ -41,33 +41,33 @@ public class FrontierStack implements Frontier {
     private int size;
 
     public FrontierStack() {
-	frontier = new LinkedList<Location>();
+        frontier = new LinkedList<Location>();
     }
 
     public String toString() {
-	Object[] array = frontier.toArray();
-	
-	String result = "";
+        Object[] array = frontier.toArray();
 
-        for (Object place: array) {
-	    result += place + "; ";
-	}
+        String result = "";
 
-	return result;
+            for (Object place: array) {
+            result += place + "; ";
+        }
+
+        return result;
     }
 
     public Location next() {
-	size--;
-	return frontier.remove();
+        size--;
+        return frontier.remove();
     }
 
     public void add(Location addition) {
-	frontier.add(addition);
-	size++;
+        frontier.add(addition);
+        size++;
     }
 
     public boolean hasNext() {
-	return size > 0;
+        return size > 0;
     }
     
 }

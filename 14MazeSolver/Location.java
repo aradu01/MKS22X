@@ -5,38 +5,38 @@ public class Location {
     private Location previous;
 
     public Location(int _x, int _y, Location prev) {
-	x = _x;
-	y = _y;
+        x = _x;
+        y = _y;
 
-	previous = prev;
+        previous = prev;
     }
 
     public String toString() {
-	return "(" + x + ", " + y + ")";
+        return "(" + x + ", " + y + ")";
     }
 
     public int xcor() {
-	return x;
+        return x;
     }
 
     public int ycor() {
-	return y;
+        return y;
     }
 
     public Location getLast() {
-	return previous;
+        return previous;
     }
 
     /* First Attempt.
     public Location[] neighbors() {
-	Location[] result = new Location[4];
-	
-	result[0] = new Location(x - 1, y, this);
-	result[1] = new Location(x, y + 1, this);
-	result[2] = new Location(x + 1, y, this);
-	result[3] = new Location(x, y - 1, this);
-	
-	return result;
+        Location[] result = new Location[4];
+
+        result[0] = new Location(x - 1, y, this);
+        result[1] = new Location(x, y + 1, this);
+        result[2] = new Location(x + 1, y, this);
+        result[3] = new Location(x, y - 1, this);
+
+        return result;
     }
     */
 	

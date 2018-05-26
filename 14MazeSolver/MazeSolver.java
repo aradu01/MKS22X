@@ -2,9 +2,17 @@ public class MazeSolver {
 
     private Maze maze;
     private Frontier frontier;
+    
+    private boolean animations;
+    private static int WAIT_TIME;
 
     public MazeSolver(String mazeText) {
-	maze = new Maze(mazeText);
+	   maze = new Maze(mazeText);
+    }
+    
+    public void movie(int time) {
+        WAIT_TIME = time;
+        animations = true;
     }
 
     private static void print(Object[] data) {
@@ -19,69 +27,87 @@ public class MazeSolver {
 
     // Breath First Search Default.
     public boolean solve() {
-	return solve(0);
+	   return solve(0);
     }
 
     // 0: Breath First Search.
     // 1: Depth First Search.
     public boolean solve(int mode) {
-	if (mode == 0) {
-	    frontier = new FrontierQueue();
-	    System.out.println(frontier);
-	}
-	    
-	else if (mode == 1) {
-	    frontier = new FrontierStack();
-	}
+        if (mode == 0) {
+            frontier = new FrontierQueue();
+            System.out.println(frontier);
+        }
 
-	else {
-	    throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
-	}
-	    
-	Location place;
-	Location[] neighbors;
+        else if (mode == 1) {
+            frontier = new FrontierStack();
+        }
 
-	frontier.add(maze.getStart());
-	System.out.println(frontier);
-	    
-	while (frontier.hasNext()) {
-	    place = frontier.next();
-	    neighbors = maze.getNeighbors(place);
+        else {
+            throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
+        }
 
-	    System.out.println(place);
-	    System.out.println("Neighbors:");
-	    print(neighbors);
-	    System.out.println(frontier);
-	    
-	    
-	    if (maze.get(place.xcor(), place.ycor()) == 'E') {
-		return true;
-	    }
-	
-	    if (maze.get(place.xcor(), place.ycor()) == ' ') {
-		maze.set(place.xcor(), place.ycor(), '.');
-	    }
+        Location place;
+        Location[] neighbors;
 
-	    for (Location area: neighbors) {
-		frontier.add(area);
-	    }
+        frontier.add(maze.getStart());
+        // System.out.println(frontier);
 
-	    System.out.println(maze.toStringColor(20));
-	}
-	    
-	return false;
+        while (frontier.hasNext()) {
+            place = frontier.next();
+            neighbors = maze.getNeighbors(place);
+            
+            /* For Testing.
+            System.out.println("Current:");
+            System.out.println(place);
+            System.out.println("Neighbors:");
+            print(neighbors);
+            System.out.println(frontier);
+            */
+
+            if (maze.get(place.xcor(), place.ycor()) == 'E') {
+                /* For Testing.
+                System.out.println(place.getLast());
+                System.out.println(maze.get(place.getLast().xcor(), place.getLast().ycor()));
+                */
+                
+                place = place.getLast();
+                
+                while (maze.get(place.xcor(), place.ycor()) != 'S') {
+                    maze.set(place.xcor(), place.ycor(), '@');
+                    place = place.getLast();
+                }
+                
+                if (animations) {
+                    System.out.println(maze.toString());
+                }
+                
+                return true;
+            }
+
+            if (maze.get(place.xcor(), place.ycor()) == ' ') {
+                maze.set(place.xcor(), place.ycor(), '.');
+            }
+
+            for (Location area: neighbors) {
+                frontier.add(area);
+            }
+            
+            if (animations) {
+                System.out.println(maze.toString());
+                
+                try {
+                    Thread.sleep(WAIT_TIME);
+                }
+
+                catch(InterruptedException e) {	}
+            }
+        }
+
+        return false;
     }
 
     public String toString() {
-	return maze.toString();
-    }
-
-    public static void main(String[] args) {
-	MazeSolver a = new MazeSolver("data1.dat");
-	System.out.println(a.solve(0));
-
-	MazeSolver b = new MazeSolver("data2.dat");
-	System.out.println(b.solve(0));
+        return maze.toString();
     }
 
 }

@@ -6,33 +6,33 @@ public class FrontierQueue implements Frontier {
     private int size;
 
     public FrontierQueue() {
-	frontier = new LinkedList<Location>();
+        frontier = new LinkedList<Location>();
     }
 
     public String toString() {
-	Object[] array = frontier.toArray();
-	
-	String result = "";
+        Object[] array = frontier.toArray();
+
+        String result = "";
 
         for (Object place: array) {
-	    result += place + "; ";
-	}
+            result += place + "; ";
+        }
 
-	return result;
+        return result;
     }
 
     public Location next() {
-	size--;
-	return frontier.removeFirst();
+        size--;
+        return frontier.removeFirst();
     }
 
     public void add(Location addition) {
-	frontier.add(addition);
-	size++;
+        frontier.add(addition);
+        size++;
     }
 
     public boolean hasNext() {
-	return size > 0;
+        return size > 0;
     }
     
 }
