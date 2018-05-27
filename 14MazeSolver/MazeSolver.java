@@ -6,7 +6,7 @@ public class MazeSolver {
     private boolean animations;
     private static int WAIT_TIME;
     
-    private boolean aStar;
+    private static boolean aStar;
 
     public MazeSolver(String mazeText) {
 	   maze = new Maze(mazeText);
@@ -31,7 +31,7 @@ public class MazeSolver {
         aStar = value;
     }
     
-    public boolean aStarStatus() {
+    public static boolean aStarStatus() {
         return aStar;
     }
     

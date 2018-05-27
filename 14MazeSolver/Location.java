@@ -46,7 +46,7 @@ public class Location implements Comparable<Location> {
     }
     
     public int compareTo(Location other) {
-        if (aStarStatus()) {
+        if (MazeSolver.aStarStatus()) {
             if (this.distance + this.traveled < other.distance + other.traveled) {
                 return -1;
             }
