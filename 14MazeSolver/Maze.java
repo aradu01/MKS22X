@@ -86,6 +86,10 @@ public class Maze {
         for (Location element: answer) {
             if (element != null) {
                 result[index] = element;
+                
+                result[index].setDist(Math.hypot(result[index].xcor() - end.xcor(), result[index].ycor() - end.ycor()));
+                // result[index].setDist(Math.sqrt(Math.pow(result[index].xcor() - end.xcor(), 2) + Math.pow(result[index].ycor() - end.ycor(), 2)));
+                
                 index++;
             }
         }

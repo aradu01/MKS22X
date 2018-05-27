@@ -41,6 +41,10 @@ public class MazeSolver {
         else if (mode == 1) {
             frontier = new FrontierStack();
         }
+        
+        else if (mode == 2) {
+            frontier = new FrontierPriorityQueue();
+        }
 
         else {
             throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
@@ -101,6 +105,8 @@ public class MazeSolver {
 
                 catch(InterruptedException e) {	}
             }
+            
+            // System.out.println(frontier);
         }
 
         return false;
