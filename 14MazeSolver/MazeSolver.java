@@ -5,6 +5,8 @@ public class MazeSolver {
     
     private boolean animations;
     private static int WAIT_TIME;
+    
+    private boolean aStar;
 
     public MazeSolver(String mazeText) {
 	   maze = new Maze(mazeText);
@@ -25,6 +27,14 @@ public class MazeSolver {
         System.out.println(result);
     }
 
+    public void setAStar(boolean value) {
+        aStar = value;
+    }
+    
+    public boolean aStarStatus() {
+        return aStar;
+    }
+    
     // Breath First Search Default.
     public boolean solve() {
 	   return solve(0);
@@ -33,7 +43,11 @@ public class MazeSolver {
     // 0: Breath First Search.
     // 1: Depth First Search.
     public boolean solve(int mode) {
-        if (mode == 0) {
+        if (aStar) {
+            frontier = new FrontierPriorityQueue();
+        }
+        
+        else if (mode == 0) {
             frontier = new FrontierQueue();
             System.out.println(frontier);
         }

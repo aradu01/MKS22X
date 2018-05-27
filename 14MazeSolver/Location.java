@@ -4,6 +4,7 @@ public class Location implements Comparable<Location> {
     private int y;
     private Location previous;
     private double distance;
+    private int traveled;
 
     public Location(int _x, int _y, Location prev) {
         x = _x;
@@ -28,25 +29,49 @@ public class Location implements Comparable<Location> {
         return previous;
     }
     
-    public double getDist() {
+    public double getDistance() {
         return distance;
     }
     
-    public void setDist(double quantity) {
+    public void setDistance(double quantity) {
         distance = quantity;
     }
     
+    public int getTraveled() {
+        return traveled;
+    }
+    
+    public void takeStep() {
+        traveled++;
+    }
+    
     public int compareTo(Location other) {
-        if (this.distance < other.getDist()) {
-            return -1;
-        }
-        
-        else if (this.distance == other.getDist()) {
-            return 0;
+        if (aStarStatus()) {
+            if (this.distance + this.traveled < other.distance + other.traveled) {
+                return -1;
+            }
+
+            else if (this.distance + this.traveled == other.distance + other.traveled) {
+                return 0;
+            }
+
+            else {
+                return 1;
+            }
         }
         
         else {
-            return 1;
+            if (this.distance < other.distance) {
+                return -1;
+            }
+
+            else if (this.distance == other.distance) {
+                return 0;
+            }
+
+            else {
+                return 1;
+            }
         }
     }
 
