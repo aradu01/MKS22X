@@ -13,6 +13,14 @@ public class Location implements Comparable<Location> {
         previous = prev;
     }
 
+    public Location(int xcor, int ycor, Location prev, int radius) {
+	x = xcor;
+        y = ycor;
+
+        previous = prev;
+	traveled = radius;
+    }
+
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
@@ -40,10 +48,12 @@ public class Location implements Comparable<Location> {
     public int getTraveled() {
         return traveled;
     }
-    
+
+    /*
     public void takeStep() {
         traveled++;
     }
+    */
     
     public int compareTo(Location other) {
         if (MazeSolver.aStarStatus()) {
