@@ -9,7 +9,7 @@ public class MazeSolver {
     private static boolean aStar;
 
     public MazeSolver(String mazeText) {
-	   maze = new Maze(mazeText);
+	maze = new Maze(mazeText);
     }
     
     public void movie(int time) {
@@ -37,17 +37,13 @@ public class MazeSolver {
     
     // Breath First Search Default.
     public boolean solve() {
-	   return solve(0);
+	return solve(0);
     }
 
     // 0: Breath First Search.
     // 1: Depth First Search.
-    public boolean solve(int mode) {
-        if (aStar) {
-            frontier = new FrontierPriorityQueue();
-        }
-        
-        else if (mode == 0) {
+    public boolean solve(int mode) {  
+        if (mode == 0) {
             frontier = new FrontierQueue();
             System.out.println(frontier);
         }
@@ -58,10 +54,16 @@ public class MazeSolver {
         
         else if (mode == 2) {
             frontier = new FrontierPriorityQueue();
+	    setAStar(false);
         }
 
+	else if (mode == 3) {
+	    frontier = new FrontierPriorityQueue();
+	    setAStar(true);
+	}
+
         else {
-            throw new IllegalArgumentException("Your mode should be either a 0 or a 1.");
+            throw new IllegalArgumentException("Your mode should be either a 0, 1, 2, or 3.");
         }
 
         Location place;
@@ -75,17 +77,17 @@ public class MazeSolver {
             neighbors = maze.getNeighbors(place);
             
             /* For Testing.
-            System.out.println("Current:");
-            System.out.println(place);
-            System.out.println("Neighbors:");
-            print(neighbors);
-            System.out.println(frontier);
+	    System.out.println("Current:");
+	    System.out.println(place);
+	    System.out.println("Neighbors:");
+	    print(neighbors);
+	    System.out.println(frontier);
             */
 
             if (maze.get(place.xcor(), place.ycor()) == 'E') {
                 /* For Testing.
-                System.out.println(place.getLast());
-                System.out.println(maze.get(place.getLast().xcor(), place.getLast().ycor()));
+	        System.out.println(place.getLast());
+		System.out.println(maze.get(place.getLast().xcor(), place.getLast().ycor()));
                 */
                 
                 place = place.getLast();
