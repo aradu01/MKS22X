@@ -31,133 +31,133 @@ public class Sorts {
     }
 
     private static int parent(int index) {
-	return (index - 1) / 2;
+	   return (index - 1) / 2;
     }
     
     private static int firstChild(int index) {
-	return 2 * index + 1;
+	   return 2 * index + 1;
     }
 
     private static int secondChild(int index) {
-	return 2 * index + 2;
+	   return 2 * index + 2;
     }
     
     public static void heapify(int[] data) {
         swap(data, 0, findLargest(data));
 
 	/*
-        for (int index = 0; index < data.length; index++) {
-            if ((index - 1) / 2 >= 0 && data[index] > data[(index - 1) / 2]) {
-                // print(data);
-                swap(data, (index - 1) / 2, index);
-                index = (index - 1) / 2;
-            }
+    for (int index = 0; index < data.length; index++) {
+        if ((index - 1) / 2 >= 0 && data[index] > data[(index - 1) / 2]) {
+            // print(data);
+            swap(data, (index - 1) / 2, index);
+            index = (index - 1) / 2;
         }
+    }
 	*/
 
-	for (int index = data.length - 1; index >= 0; index--) {
-	    if (parent(index) >= 0 && data[index] > data[parent(index)]) {
-		swap(data, parent(index), index);
-	    }
-	}
+        for (int index = data.length - 1; index >= 0; index--) {
+            if (parent(index) >= 0 && data[index] > data[parent(index)]) {
+              swap(data, parent(index), index);
+            }
+        }
     }
 
     public static void heapsort(int[] data) {
-	heapify(data);
+        heapify(data);
 	
-	/* First Attempt.
-	int border = data.length;
-	int current;
-	
-	for (int index = 0; index < border; index++) {
-	    print(data);
-	    swap(data, index, data.length - 1);
-	    border--;
+        /* First Attempt.
+        int border = data.length;
+        int current;
 
-     	    current = index;
-        
-     	    while (firstChild(current) < border && data[current] < data[firstChild(current)] || 
-                secondChild(current) < border && data[current] < data[secondChild(current)]) {
-	        if (data[current] < data[firstChild(current)] && data[current] < data[secondChild(current)]) {
+        for (int index = 0; index < border; index++) {
+            print(data);
+            swap(data, index, data.length - 1);
+            border--;
+
+                current = index;
+
+                while (firstChild(current) < border && data[current] < data[firstChild(current)] || 
+                    secondChild(current) < border && data[current] < data[secondChild(current)]) {
+                if (data[current] < data[firstChild(current)] && data[current] < data[secondChild(current)]) {
+                        if (data[firstChild(current)] > data[secondChild(current)]) {
+                            swap(data, current, firstChild(current));
+                            current = firstChild(current);
+                        }
+
+                        else {
+                            swap(data, current, secondChild(current));
+                            current = secondChild(current);
+                        }
+                    }
+
+                    else if (data[current] < data[firstChild(current)]) {
+                        swap(data, current, firstChild(current));
+                        current = firstChild(current);
+                    }
+
+                    else if (data[current] < data[secondChild(current)]) {
+                        swap(data, current, secondChild(current));
+                        current = secondChild(current);
+                    }
+                }
+            }
+        */
+
+        /* Second Attempt.
+        int border = data.length;
+            int current;
+
+            for (int index = 0; index < border; index++) {
+                print(data);
+
+                current = index;
+                swap(data, current, border - 1);
+
+                while (firstChild(current) < border || secondChild(current) < border) {
+                    if (data[current] > data[firstChild(current)] && data[current] > data[secondChild(current)]) {
+                        break;
+                    }
+
+                    else if (data[firstChild(current)] > data[secondChild(current)]) {
+                        swap(data, current, firstChild(current));
+                        current = firstChild(current);
+                    }
+
+                    else if (data[secondChild(current)] > data[firstChild(current)]) {
+                        swap(data, current, secondChild(current));
+                        current = secondChild(current);
+                    }
+                }
+
+                border--;
+            }
+        */
+
+        /* Third Attempt.
+        int current;
+            int border = data.length;
+
+            for (int index = 0; index < data.length; index++) {
+                current = index;
+                swap(data, current, border - 1);
+
+                while (firstChild(current) < border || secondChild(current) < border) {
+                    if (data[current] < data[firstChild(current)] || data[current] < data[secondChild(current)]) {
                     if (data[firstChild(current)] > data[secondChild(current)]) {
                         swap(data, current, firstChild(current));
                         current = firstChild(current);
                     }
-                
+
                     else {
                         swap(data, current, secondChild(current));
                         current = secondChild(current);
                     }
                 }
-            
-                else if (data[current] < data[firstChild(current)]) {
-                    swap(data, current, firstChild(current));
-                    current = firstChild(current);
                 }
-            
-                else if (data[current] < data[secondChild(current)]) {
-                    swap(data, current, secondChild(current));
-                    current = secondChild(current);
-                }
-            }
-        }
-	*/
-	
-	/* Second Attempt.
-	int border = data.length;
-    	int current;
-    	
-    	for (int index = 0; index < border; index++) {
-    	    print(data);
 
-      	    current = index;
-            swap(data, current, border - 1);
-            
-     	    while (firstChild(current) < border || secondChild(current) < border) {
-     	        if (data[current] > data[firstChild(current)] && data[current] > data[secondChild(current)]) {
-     	            break;
-     	        }
-     	        
-                else if (data[firstChild(current)] > data[secondChild(current)]) {
-                    swap(data, current, firstChild(current));
-                    current = firstChild(current);
-                }
-                
-                else if (data[secondChild(current)] > data[firstChild(current)]) {
-                    swap(data, current, secondChild(current));
-                    current = secondChild(current);
-                }
+                border--;
             }
-            
-            border--;
-        }
-	*/
-	    
-	/* Third Attempt.
-	int current;
-        int border = data.length;
-        
-        for (int index = 0; index < data.length; index++) {
-            current = index;
-            swap(data, current, border - 1);
-        	
-            while (firstChild(current) < border || secondChild(current) < border) {
-       	        if (data[current] < data[firstChild(current)] || data[current] < data[secondChild(current)]) {
-        	    if (data[firstChild(current)] > data[secondChild(current)]) {
-        	        swap(data, current, firstChild(current));
-        	        current = firstChild(current);
-        	    }
-        	        
-        	    else {
-        	        swap(data, current, secondChild(current));
-        	        current = secondChild(current);
-        	    }
-       		}
-            }
-        	
-       	    border--;
-        }
-	*/
+        */
 	
         for (int border = data.length - 1; border > 0; border--) {
             swap(data, 0, border);
