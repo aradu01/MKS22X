@@ -19,12 +19,12 @@ public class Driver {
         System.out.println(c.solve(2));
         
         MazeSolver d = new MazeSolver("data4.dat");
-        d.movie(TIME);
+        // d.movie(TIME);
         // System.out.println(d.aStarStatus());
         System.out.println(d.solve(2));
 
 	MazeSolver g = new MazeSolver("data4.dat");
-	g.movie(TIME);
+	// g.movie(TIME);
 	System.out.println(g.solve(3));
 	// System.out.println(g.aStarStatus());
         
@@ -34,12 +34,12 @@ public class Driver {
         System.out.println(e.solve(0));
         
         MazeSolver f = new MazeSolver("data6.dat");
-        f.movie(TIME);
+        // f.movie(TIME);
         // System.out.println(f.aStarStatus());
         System.out.println(f.solve(2));
 
 	MazeSolver h = new MazeSolver("data6.dat");
-	h.movie(TIME);
+	// h.movie(TIME);
 	System.out.println(h.solve(3));
     }
     

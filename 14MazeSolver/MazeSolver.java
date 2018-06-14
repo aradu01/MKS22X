@@ -45,11 +45,13 @@ public class MazeSolver {
     public boolean solve(int mode) {  
         if (mode == 0) {
             frontier = new FrontierQueue();
-            System.out.println(frontier);
+            // System.out.println(frontier);
+	    setAStar(false);
         }
 
         else if (mode == 1) {
             frontier = new FrontierStack();
+	    setAStar(false);
         }
         
         else if (mode == 2) {
